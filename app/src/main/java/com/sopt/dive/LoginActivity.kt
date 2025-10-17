@@ -28,6 +28,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
@@ -64,6 +66,8 @@ fun LoginScreen() {
     // 본 화면에서 유저가 입력한 값
     var inputId by remember { mutableStateOf("") }
     var inputPw by remember { mutableStateOf("") }
+
+    val focusManager = LocalFocusManager.current
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -107,13 +111,16 @@ fun LoginScreen() {
                         value = inputId,
                         onValueChanged = { inputId = it },
                         placeholder = "아이디를 입력해주세요",
+                        focusManager = focusManager,
+                        imeAction = ImeAction.Next,
                     )
                     AuthInputField(
                         label = "PW",
                         value = inputPw,
                         onValueChanged = { inputPw = it },
                         placeholder = "비밀번호를 입력해주세요",
-                        isPw = true
+                        isPw = true,
+                        focusManager = focusManager,
                     )
                 }
                 Spacer(Modifier.weight(1f))
