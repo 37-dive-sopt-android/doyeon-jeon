@@ -21,9 +21,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,12 +34,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.edit
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle
 import com.sopt.dive.ui.component.TextButton
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.DiveTheme
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +59,42 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen() {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    // 저장된 데이터 불러오기 ~
+    val userId by context.dataStore.data
+        .map { it[DataStoreKeys.ID] }
+        .collectAsState(initial = null)
+
+    val userPw by context.dataStore.data
+        .map { it[DataStoreKeys.PW] }
+        .collectAsState(initial = null)
+
+    val userNickname by context.dataStore.data
+        .map { it[DataStoreKeys.NICKNAME] }
+        .collectAsState(initial = null)
+
+    val userMbti by context.dataStore.data
+        .map { it[DataStoreKeys.MBTI] }
+        .collectAsState(initial = null)
+    // ~ 저장된 데이터 불러오기
+
+    // 저장된 유저 정보 있다면 메인 화면 랜딩
+    LaunchedEffect(userId) {
+        if (userId != null && userPw != null && userNickname != null && userMbti != null) {
+            val intent = Intent(context, MainActivity::class.java).apply {
+                // 뒤로가기 해도 로그인 화면으로 못돌아오게 flags 달기
+                flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+                // 메인 화면으로 회원 정보 넘겨주기
+                .putExtra("id", userId)
+                .putExtra("pw", userPw)
+                .putExtra("nickname", userNickname)
+                .putExtra("mbti", userMbti)
+            context.startActivity(intent)
+        }
+    }
 
     // 회원가입 완료했는지 확인하기 위한 값
     var isRegistered by remember { mutableStateOf(false) }
@@ -151,6 +193,17 @@ fun LoginScreen() {
                             return@AuthButton
                         }
                         // 위 케이스 모두 통과했다면 > 로그인
+
+                        // DataStore에 유저 정보 저장하기
+                        scope.launch {
+                            context.dataStore.edit { user ->
+                                user[DataStoreKeys.ID] = id
+                                user[DataStoreKeys.PW] = pw
+                                user[DataStoreKeys.NICKNAME] = nickname
+                                user[DataStoreKeys.MBTI] = mbti
+                            }
+                        }
+
                         val intent = Intent(context, MainActivity::class.java).apply {
                             // 뒤로가기 해도 로그인 화면으로 못돌아오게 flags 달기
                             flags =
