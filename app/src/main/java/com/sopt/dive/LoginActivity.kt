@@ -122,8 +122,8 @@ fun LoginScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
                 .background(Background)
+                .padding(innerPadding)
         ) {
             Column(
                 modifier = Modifier.padding(
