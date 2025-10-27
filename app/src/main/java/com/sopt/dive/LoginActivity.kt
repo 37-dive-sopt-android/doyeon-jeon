@@ -39,7 +39,7 @@ import com.sopt.dive.data.UserPrefs
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle
-import com.sopt.dive.ui.component.TextButton
+import com.sopt.dive.ui.component.DiveTextButton
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.DiveTheme
 import kotlinx.coroutines.flow.map
@@ -162,7 +162,7 @@ fun LoginScreen() {
                 }
                 Spacer(Modifier.weight(1f))
                 // 회원가입 하러 가는 버튼
-                TextButton(
+                DiveTextButton(
                     label = "회원가입하기",
                     onClick = {
                         val intent = Intent(context, RegisterActivity::class.java)

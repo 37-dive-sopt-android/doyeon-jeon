@@ -12,7 +12,7 @@ import com.sopt.dive.ui.theme.Black3
 import com.sopt.dive.ui.theme.Typography
 
 @Composable
-fun TextButton(
+fun DiveTextButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -35,7 +35,7 @@ fun TextButton(
 @Preview
 @Composable
 fun TextButtonPreview() {
-    TextButton(
+    DiveTextButton(
         label = "야야야",
         onClick = {},
     )
