@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.ui.component.AuthButton
@@ -89,66 +90,85 @@ fun RegisterScreen(
                     verticalArrangement = Arrangement.spacedBy(28.dp)
                 ) {
                     AuthInputField(
-                        label = "ID",
+                        label = stringResource(R.string.register_id_label),
                         value = id,
                         onValueChanged = { id = it },
-                        placeholder = "아이디를 입력해주세요",
+                        placeholder = stringResource(R.string.register_id_placeholder),
                         focusManager = focusManager,
                         imeAction = ImeAction.Next,
                     )
                     AuthInputField(
-                        label = "PW",
+                        label = stringResource(R.string.register_pw_label),
                         value = pw,
                         onValueChanged = { pw = it },
-                        placeholder = "비밀번호를 입력해주세요",
+                        placeholder = stringResource(R.string.register_pw_placeholder),
                         isPw = true,
                         focusManager = focusManager,
                         imeAction = ImeAction.Next,
                     )
                     AuthInputField(
-                        label = "NICKNAME",
+                        label = stringResource(R.string.register_nickname_label),
                         value = nickname,
                         onValueChanged = { nickname = it },
-                        placeholder = "닉네임을 입력해주세요",
+                        placeholder = stringResource(R.string.register_nickname_placeholder),
                         focusManager = focusManager,
                         imeAction = ImeAction.Next,
                     )
                     AuthInputField(
-                        label = "MBTI",
+                        label = stringResource(R.string.register_mbti_label),
                         value = mbti,
                         onValueChanged = { mbti = it },
-                        placeholder = "MBTI를 입력해주세요",
+                        placeholder = stringResource(R.string.register_mbti_placeholder),
                         focusManager = focusManager,
                     )
                 }
                 Spacer(Modifier.weight(1f))
                 // 회원가입 버튼
                 AuthButton(
-                    content = "회원가입하기",
+                    content = stringResource(R.string.register_button),
                     onClick = {
                         // 아이디가 유효하지 않은 경우
                         if (id.length < 6 || id.length > 10) {
-                            Toast.makeText(context, "아이디는 6~10자 입력해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.register_id_fail_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             return@AuthButton
                         }
                         // 비밀번호가 유효하지 않은 경우
                         if (pw.length < 8 || pw.length > 12) {
-                            Toast.makeText(context, "비밀번호는 8~12자 입력해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.register_pw_fail_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             return@AuthButton
                         }
                         // 닉네임이 유효하지 않은 경우
                         if (nickname.isBlank()) {
-                            Toast.makeText(context, "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.register_nickname_fail_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             return@AuthButton
                         }
                         // MBTI가 유효하지 않은 경우
                         if (mbti.length != 4) {
-                            Toast.makeText(context, "MBTI는 4자 입력해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.register_mbti_fail_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             return@AuthButton
                         }
                         // 위 케이스 모두 통과했다면 > 회원가입
                         onRegisterClick(id, pw, nickname, mbti)
-                        Toast.makeText(context, "회원가입에 성공했어요", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.register_success_message), Toast.LENGTH_SHORT
+                        ).show()
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.ui.component.InfoBox
 import com.sopt.dive.ui.component.ProfileBox
@@ -61,27 +62,27 @@ fun MainScreen(
             ) {
                 ProfileBox(
                     image = R.drawable.chopper,
-                    name = "도도",
-                    bio = "도도가 뛰면 도도도도도도도",
+                    name = stringResource(R.string.main_user_name),
+                    bio = stringResource(R.string.main_user_bio),
                 )
                 Spacer(Modifier.height(40.dp))
                 Column(
                     verticalArrangement = Arrangement.spacedBy(28.dp)
                 ) {
                     InfoBox(
-                        label = "ID",
+                        label = stringResource(R.string.main_id_label),
                         value = id,
                     )
                     InfoBox(
-                        label = "PW",
+                        label = stringResource(R.string.main_pw_label),
                         value = pw,
                     )
                     InfoBox(
-                        label = "NICKNAME",
+                        label = stringResource(R.string.main_nickname_label),
                         value = nickname,
                     )
                     InfoBox(
-                        label = "MBTI",
+                        label = stringResource(R.string.main_mbti_label),
                         value = mbti,
                     )
                 }

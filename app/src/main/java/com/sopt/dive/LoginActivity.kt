@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
@@ -132,7 +133,7 @@ fun LoginScreen() {
                 )
             ) {
                 // 타이틀
-                ScreenTitle("Welcome To SOPT")
+                ScreenTitle(stringResource(R.string.login_title))
                 // 왜 Spacer?
                 // - 전혀 다른 ui가 쌓이는 거라
                 Spacer(Modifier.height(40.dp))
@@ -144,18 +145,18 @@ fun LoginScreen() {
                     verticalArrangement = Arrangement.spacedBy(28.dp)
                 ) {
                     AuthInputField(
-                        label = "ID",
+                        label = stringResource(R.string.login_id_label),
                         value = inputId,
                         onValueChanged = { inputId = it },
-                        placeholder = "아이디를 입력해주세요",
+                        placeholder = stringResource(R.string.login_id_placeholder),
                         focusManager = focusManager,
                         imeAction = ImeAction.Next,
                     )
                     AuthInputField(
-                        label = "PW",
+                        label = stringResource(R.string.login_pw_label),
                         value = inputPw,
                         onValueChanged = { inputPw = it },
-                        placeholder = "비밀번호를 입력해주세요",
+                        placeholder = stringResource(R.string.login_pw_placeholder),
                         isPw = true,
                         focusManager = focusManager,
                     )
@@ -163,7 +164,7 @@ fun LoginScreen() {
                 Spacer(Modifier.weight(1f))
                 // 회원가입 하러 가는 버튼
                 DiveTextButton(
-                    label = "회원가입하기",
+                    label = stringResource(R.string.login_to_register_button),
                     onClick = {
                         val intent = Intent(context, RegisterActivity::class.java)
                         // 가입 완료 후 돌아왔을 때 데이터 전달받기 위해 laucher 사용
@@ -174,16 +175,24 @@ fun LoginScreen() {
                 Spacer(Modifier.height(16.dp))
                 // 로그인 버튼
                 AuthButton(
-                    content = "로그인하기",
+                    content = stringResource(R.string.login_button),
                     onClick = {
                         // 회원가입 안 한 경우
                         if (!isRegistered) {
-                            Toast.makeText(context, "회원가입 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.login_need_register_fail_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             return@AuthButton
                         }
                         // id나 pw가 일치하지 않는 경우
                         if (inputId != id || inputPw != pw) {
-                            Toast.makeText(context, "아이디 또는 비밀번호가 일치하지 않아요", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.login_invalid_fail_message),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                             return@AuthButton
                         }
@@ -211,7 +220,10 @@ fun LoginScreen() {
                             .putExtra("mbti", mbti)
                         context.startActivity(intent)
 
-                        Toast.makeText(context, "로그인에 성공했어요", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.login_success_message), Toast.LENGTH_SHORT
+                        ).show()
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
