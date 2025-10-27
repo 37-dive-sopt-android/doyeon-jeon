@@ -45,7 +45,7 @@ fun AuthInputField(
         )
         Spacer(Modifier.height(8.dp))
         BasicTextField(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth(),
             value = value,
             onValueChange = onValueChanged,
