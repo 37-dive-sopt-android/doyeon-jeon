@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +34,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sopt.dive.data.UserPrefs
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle
@@ -62,36 +63,30 @@ fun LoginScreen() {
     val scope = rememberCoroutineScope()
 
     // 저장된 데이터 불러오기 ~
-    val userId by context.dataStore.data
-        .map { it[DataStoreKeys.ID] }
-        .collectAsState(initial = null)
-
-    val userPw by context.dataStore.data
-        .map { it[DataStoreKeys.PW] }
-        .collectAsState(initial = null)
-
-    val userNickname by context.dataStore.data
-        .map { it[DataStoreKeys.NICKNAME] }
-        .collectAsState(initial = null)
-
-    val userMbti by context.dataStore.data
-        .map { it[DataStoreKeys.MBTI] }
-        .collectAsState(initial = null)
-    // ~ 저장된 데이터 불러오기
+    val userPrefs by context.dataStore.data
+        .map { preferences ->
+            UserPrefs(
+                id = preferences[DataStoreKeys.ID],
+                pw = preferences[DataStoreKeys.PW],
+                nickname = preferences[DataStoreKeys.NICKNAME],
+                mbti = preferences[DataStoreKeys.MBTI]
+            )
+        }
+        .collectAsStateWithLifecycle(null)
 
     // 저장된 유저 정보 있다면 메인 화면 랜딩
-    LaunchedEffect(userId) {
-        if (userId != null && userPw != null && userNickname != null && userMbti != null) {
+    LaunchedEffect(userPrefs) {
+        if (userPrefs != null) {
             val intent = Intent(context, MainActivity::class.java).apply {
                 // 뒤로가기 해도 로그인 화면으로 못돌아오게 flags 달기
                 flags =
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
                 // 메인 화면으로 회원 정보 넘겨주기
-                .putExtra("id", userId)
-                .putExtra("pw", userPw)
-                .putExtra("nickname", userNickname)
-                .putExtra("mbti", userMbti)
+                .putExtra("id", userPrefs!!.id)
+                .putExtra("pw", userPrefs!!.pw)
+                .putExtra("nickname", userPrefs!!.nickname)
+                .putExtra("mbti", userPrefs!!.mbti)
             context.startActivity(intent)
         }
     }
