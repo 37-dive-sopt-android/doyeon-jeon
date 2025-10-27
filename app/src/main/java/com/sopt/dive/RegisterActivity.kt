@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
@@ -138,7 +137,7 @@ fun RegisterScreen(
                             return@AuthButton
                         }
                         // 닉네임이 유효하지 않은 경우
-                        if (nickname.isEmpty() || nickname.isBlank()) {
+                        if (nickname.isBlank()) {
                             Toast.makeText(context, "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
                             return@AuthButton
                         }
