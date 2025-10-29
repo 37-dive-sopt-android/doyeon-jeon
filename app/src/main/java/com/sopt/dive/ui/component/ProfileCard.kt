@@ -1,6 +1,5 @@
 package com.sopt.dive.ui.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,15 +18,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.R
+import com.sopt.dive.data.Profile
 import com.sopt.dive.ui.theme.Black1
 import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Typography
 
 @Composable
-fun ProfileBox(
-    @DrawableRes image: Int,
-    name: String,
-    bio: String,
+fun ProfileCard(
+    profile: Profile,
     modifier: Modifier= Modifier
 ) {
     Column (
@@ -37,7 +35,7 @@ fun ProfileBox(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = image),
+                painter = painterResource(id = profile.image),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -46,14 +44,14 @@ fun ProfileBox(
             )
             Spacer(Modifier.width(8.dp))
             Text(
-                name,
+                profile.name,
                 style = Typography.titleMedium,
                 color = Black1
             )
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            bio,
+            profile.bio,
             style = Typography.titleSmall,
             color = Black2
         )
@@ -62,10 +60,12 @@ fun ProfileBox(
 
 @Preview
 @Composable
-fun ProfileBoxPreview() {
-    ProfileBox(
-        image = R.drawable.chopper,
-        name = "도도",
-        bio = "도도도도도도돋도",
+private fun ProfileBoxPreview() {
+    ProfileCard(
+        profile = Profile(
+            image = R.drawable.chopper,
+            name = "도도",
+            bio = "도도도도도도돋도",
+        ),
     )
 }

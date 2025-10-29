@@ -19,8 +19,9 @@ import com.sopt.dive.R
 import com.sopt.dive.data.DataStoreKeys
 import com.sopt.dive.data.UserPrefs
 import com.sopt.dive.data.dataStore
+import com.sopt.dive.data.myProfile
 import com.sopt.dive.ui.component.InfoBox
-import com.sopt.dive.ui.component.ProfileBox
+import com.sopt.dive.ui.component.ProfileCard
 import com.sopt.dive.ui.theme.Background
 import kotlinx.coroutines.flow.map
 
@@ -53,10 +54,8 @@ fun ProfileScreen() {
                     horizontal = 20.dp
                 )
             ) {
-                ProfileBox(
-                    image = R.drawable.chopper,
-                    name = stringResource(R.string.main_user_name),
-                    bio = stringResource(R.string.main_user_bio),
+                ProfileCard(
+                    profile = myProfile
                 )
                 Spacer(Modifier.height(40.dp))
                 Column(
