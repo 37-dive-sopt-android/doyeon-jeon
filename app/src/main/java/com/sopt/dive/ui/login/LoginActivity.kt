@@ -1,4 +1,4 @@
-package com.sopt.dive
+package com.sopt.dive.ui.login
 
 import android.app.Activity
 import android.content.Intent
@@ -36,7 +36,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sopt.dive.MainActivity
+import com.sopt.dive.R
+import com.sopt.dive.ui.register.RegisterActivity
+import com.sopt.dive.data.DataStoreKeys
 import com.sopt.dive.data.UserPrefs
+import com.sopt.dive.data.dataStore
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle
@@ -80,8 +85,8 @@ fun LoginScreen() {
         if (userPrefs != null) {
             val intent = Intent(context, MainActivity::class.java).apply {
                 // 뒤로가기 해도 로그인 화면으로 못돌아오게 flags 달기
-                flags =
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                Intent.setFlags =
+//                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
                 // 메인 화면으로 회원 정보 넘겨주기
                 .putExtra("id", userPrefs!!.id)
@@ -210,8 +215,8 @@ fun LoginScreen() {
 
                         val intent = Intent(context, MainActivity::class.java).apply {
                             // 뒤로가기 해도 로그인 화면으로 못돌아오게 flags 달기
-                            flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                            Intent.setFlags =
+//                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                             // 메인 화면으로 회원 정보 넘겨주기
                             .putExtra("id", id)

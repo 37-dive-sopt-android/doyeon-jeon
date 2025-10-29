@@ -1,4 +1,4 @@
-package com.sopt.dive
+package com.sopt.dive.data
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 
