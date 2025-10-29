@@ -21,7 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sopt.dive.ui.component.BottomNavigationBar
 import com.sopt.dive.ui.component.BottomNavigationBarItem
-import com.sopt.dive.ui.home.Home
+import com.sopt.dive.ui.splash.Splash
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.DiveTheme
 
@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = Home,
+                            startDestination = Splash,
                         ) {
                             diveNavGraph(navController)
                         }
