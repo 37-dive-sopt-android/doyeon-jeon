@@ -61,8 +61,6 @@ fun NavGraphBuilder.diveNavGraph(
         SearchScreen()
     }
     composable<Profile> {
-        // 임시로 하드코딩
-        // 추후 ProfileScreen에서 DataStore 로드 & 파라미터 전달 안 하도록 개선
-        ProfileScreen("t", "e", "m", "p")
+        ProfileScreen()
     }
 }
