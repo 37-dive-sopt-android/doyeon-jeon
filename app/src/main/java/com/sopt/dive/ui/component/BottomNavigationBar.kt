@@ -64,9 +64,12 @@ fun BottomNavigationBarItem(
     @DrawableRes icon: Int,
     label: String,
     modifier: Modifier = Modifier,
-    selectedColor: Color = Coral,
-    unselectedColor: Color = Black3,
+    selectedColor: Color? = null,
+    unselectedColor: Color? = null,
 ) {
+    val selectedColor = selectedColor ?: Coral
+    val unselectedColor = unselectedColor ?: Black3
+
     Column(
         modifier = modifier
             .background(Color.Transparent)
