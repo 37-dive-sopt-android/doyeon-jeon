@@ -8,17 +8,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sopt.dive.ui.home.Home
 import com.sopt.dive.ui.home.HomeRoute
-import com.sopt.dive.ui.home.HomeScreen
 import com.sopt.dive.ui.login.Login
 import com.sopt.dive.ui.login.LoginScreen
 import com.sopt.dive.ui.profile.Profile
 import com.sopt.dive.ui.profile.ProfileRoute
-import com.sopt.dive.ui.profile.ProfileScreen
 import com.sopt.dive.ui.register.Register
 import com.sopt.dive.ui.register.RegisterScreen
 import com.sopt.dive.ui.search.Search
 import com.sopt.dive.ui.search.SearchRoute
-import com.sopt.dive.ui.search.SearchScreen
 import com.sopt.dive.ui.splash.Splash
 import com.sopt.dive.ui.splash.SplashScreen
 
