@@ -1,11 +1,8 @@
 package com.sopt.dive.ui.profile
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -22,11 +19,12 @@ import com.sopt.dive.data.dataStore
 import com.sopt.dive.data.myProfile
 import com.sopt.dive.ui.component.InfoBox
 import com.sopt.dive.ui.component.ProfileCard
-import com.sopt.dive.ui.theme.Background
 import kotlinx.coroutines.flow.map
 
 @Composable
-fun ProfileScreen() {
+fun ProfileRoute(
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
 
     // 저장된 데이터 불러오기
@@ -42,42 +40,49 @@ fun ProfileScreen() {
         }
         .collectAsStateWithLifecycle(null)
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Background)
-    ) {
-        if (userPrefs != null)
+    ProfileScreen(
+        userPrefs = userPrefs,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun ProfileScreen(
+    userPrefs: UserPrefs?,
+    modifier: Modifier = Modifier,
+) {
+
+    userPrefs?.let {
+        Column(
+            modifier = modifier.padding(
+                vertical = 24.dp,
+                horizontal = 20.dp
+            ),
+        ) {
+            ProfileCard(
+                profile = myProfile
+            )
+            Spacer(Modifier.height(40.dp))
             Column(
-                modifier = Modifier.padding(
-                    vertical = 24.dp,
-                    horizontal = 20.dp
-                )
+                verticalArrangement = Arrangement.spacedBy(28.dp)
             ) {
-                ProfileCard(
-                    profile = myProfile
+                InfoBox(
+                    label = stringResource(R.string.main_id_label),
+                    value = it.id ?: "",
                 )
-                Spacer(Modifier.height(40.dp))
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(28.dp)
-                ) {
-                    InfoBox(
-                        label = stringResource(R.string.main_id_label),
-                        value = userPrefs!!.id ?: "",
-                    )
-                    InfoBox(
-                        label = stringResource(R.string.main_pw_label),
-                        value = userPrefs!!.pw ?: "",
-                    )
-                    InfoBox(
-                        label = stringResource(R.string.main_nickname_label),
-                        value = userPrefs!!.nickname ?: "",
-                    )
-                    InfoBox(
-                        label = stringResource(R.string.main_mbti_label),
-                        value = userPrefs!!.mbti ?: "",
-                    )
-                }
+                InfoBox(
+                    label = stringResource(R.string.main_pw_label),
+                    value = it.pw ?: "",
+                )
+                InfoBox(
+                    label = stringResource(R.string.main_nickname_label),
+                    value = it.nickname ?: "",
+                )
+                InfoBox(
+                    label = stringResource(R.string.main_mbti_label),
+                    value = it.mbti ?: "",
+                )
             }
+        }
     }
 }

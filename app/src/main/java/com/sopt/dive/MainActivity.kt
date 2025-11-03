@@ -44,11 +44,8 @@ class MainActivity : ComponentActivity() {
                     it.route::class.qualifiedName == currentRoute
                 }
 
-                // 화면이 시스템바와 겹치지 않도록 Scaffold modifier 설정
                 Scaffold(
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .navigationBarsPadding(),
+                    modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         if (showNavBar) {
                             DiveBottomNavigationBar(
@@ -67,22 +64,23 @@ class MainActivity : ComponentActivity() {
                                         restoreState = true
                                     }
                                 },
-                                modifier = Modifier.padding(horizontal = 20.dp)
+                                modifier = Modifier
+                                    .padding(horizontal = 20.dp, vertical = 0.dp)
+                                    .navigationBarsPadding()
                             )
                         }
                     }
-                ) { innerPading ->
+                ) { innerPadding ->
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(Background)
-                            .padding(innerPading)
                     ) {
                         NavHost(
                             navController = navController,
                             startDestination = Splash,
                         ) {
-                            diveNavGraph(navController)
+                            diveNavGraph(navController, innerPadding)
                         }
                     }
                 }

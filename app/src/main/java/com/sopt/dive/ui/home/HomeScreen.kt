@@ -1,6 +1,8 @@
 package com.sopt.dive.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,40 +11,72 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.dive.data.Profile
 import com.sopt.dive.data.homeProfiles
 import com.sopt.dive.data.myProfile
 import com.sopt.dive.ui.component.ProfileCard
+import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.Black3
 
 @Composable
-fun HomeScreen() {
+fun HomeRoute(
+    modifier: Modifier = Modifier,
+) {
+    HomeScreen(
+        myProfile = myProfile,
+        homeProfiles = homeProfiles,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun HomeScreen(
+    myProfile: Profile,
+    homeProfiles: List<Profile>,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 24.dp)
+    ) {
+        stickyHeader {
+            ProfileHeader(
+                myProfile = myProfile,
+            )
+        }
+        items(homeProfiles) {
+            ProfileCard(
+                profile = it,
+                modifier = Modifier.padding(top = 20.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProfileHeader(
+    myProfile: Profile,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = Modifier.padding(
-            horizontal = 20.dp,
-            vertical = 24.dp
-        )
+        modifier = modifier.background(Background)
     ) {
         ProfileCard(
-            profile = myProfile
+            profile = myProfile,
         )
         HorizontalDivider(
             thickness = 2.dp,
             color = Black3.copy(alpha = 0.6f),
             modifier = Modifier.padding(top = 20.dp)
         )
-        LazyColumn {
-            items(homeProfiles) {
-                ProfileCard(
-                    profile = it,
-                    modifier = Modifier.padding(top = 20.dp)
-                )
-            }
-        }
     }
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        myProfile = myProfile,
+        homeProfiles = homeProfiles,
+    )
 }
