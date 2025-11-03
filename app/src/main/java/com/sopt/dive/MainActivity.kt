@@ -21,6 +21,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sopt.dive.ui.component.BottomNavigationBar
 import com.sopt.dive.ui.component.BottomNavigationBarItem
+import com.sopt.dive.ui.navigation.NavBarDestination
+import com.sopt.dive.ui.navigation.diveNavGraph
 import com.sopt.dive.ui.splash.Splash
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.DiveTheme
@@ -45,7 +47,6 @@ class MainActivity : ComponentActivity() {
                 // 화면이 시스템바와 겹치지 않도록 Scaffold modifier 설정
                 Scaffold(
                     modifier = Modifier
-                        .statusBarsPadding()
                         .statusBarsPadding()
                         .navigationBarsPadding(),
                     bottomBar = {

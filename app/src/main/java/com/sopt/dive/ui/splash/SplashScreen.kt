@@ -46,7 +46,7 @@ fun SplashScreen(
 
         // 저장된 유저 정보 있다면 메인 화면 랜딩
         // 없다면 로그인 화면 랜딩
-        if (userPrefs != null && userPrefs!!.isLoggedIn != null && userPrefs!!.isLoggedIn!!) {
+        if (userPrefs?.isLoggedIn == true) {
             navigateToHome()
         } else {
             navitageToLogin()

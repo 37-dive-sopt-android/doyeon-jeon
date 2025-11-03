@@ -1,7 +1,8 @@
-package com.sopt.dive
+package com.sopt.dive.ui.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
+import com.sopt.dive.R
 import com.sopt.dive.ui.home.Home
 import com.sopt.dive.ui.profile.Profile
 import com.sopt.dive.ui.search.Search
@@ -9,7 +10,7 @@ import com.sopt.dive.ui.search.Search
 enum class NavBarDestination(
     @DrawableRes val icon: Int,
     val label: String,
-    val route: Any,
+    val route: Route,
     val selectedColor: Color? = null,
     val unselectedColor: Color? = null,
 ) {

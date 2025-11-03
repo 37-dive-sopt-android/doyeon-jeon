@@ -1,4 +1,4 @@
-package com.sopt.dive
+package com.sopt.dive.ui.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

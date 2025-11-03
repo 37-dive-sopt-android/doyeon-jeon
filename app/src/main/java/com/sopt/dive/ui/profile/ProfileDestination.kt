@@ -1,6 +1,7 @@
 package com.sopt.dive.ui.profile
 
+import com.sopt.dive.ui.navigation.Route
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Profile
+data object Profile : Route
