@@ -84,18 +84,18 @@ fun ProfileCard(
                     )
                 }
             }
-            if (profile.music != null) {
+            profile.music?.let {
                 DiveChip(
-                    content = "🎵 ${profile.music.title}",
+                    content = "🎵 ${it.title}",
                     style = DiveChipStyle.GreenStyle,
                     modifier = Modifier.widthIn(max = 120.dp)
                 )
             }
         }
-        if (profile.bio != null) {
+        profile.bio?.let {
             Spacer(Modifier.height(4.dp))
             Text(
-                profile.bio,
+                it,
                 style = Typography.titleSmall,
                 color = Black2
             )
