@@ -30,4 +30,5 @@
     <string name="register_nickname_fail_message">닉네임을 입력해주세요</string>
     <string name="register_mbti_fail_message">MBTI는 4자 입력해주세요</string>
     <string name="register_success_message">회원가입에 성공했어요</string>
+    <string name="sopt">SOPT</string>
 </resources>
