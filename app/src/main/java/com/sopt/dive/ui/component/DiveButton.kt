@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.ui.theme.Coral
 import com.sopt.dive.ui.theme.Typography
+import com.sopt.dive.ui.theme.White
 
 @Composable
 fun DiveButton(
@@ -29,14 +30,15 @@ fun DiveButton(
     ) {
         Text(
             content,
-            style = Typography.titleSmall
+            style = Typography.titleSmall,
+            color = White
         )
     }
 }
 
 @Preview
 @Composable
-private fun AuthButtonPreview() {
+private fun DiveButtonPreview() {
     DiveButton(
         content = "안녕",
         onClick = { },
@@ -46,7 +48,7 @@ private fun AuthButtonPreview() {
 
 @Preview
 @Composable
-private fun AuthButtonDisabledPreview() {
+private fun DiveButtonDisabledPreview() {
     DiveButton(
         content = "안녕",
         onClick = { },
