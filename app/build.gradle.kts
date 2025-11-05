@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.data.preferences)
     implementation(libs.navigation)
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.lifecycle)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
