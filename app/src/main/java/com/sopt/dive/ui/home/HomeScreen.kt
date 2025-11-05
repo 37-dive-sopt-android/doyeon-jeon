@@ -8,9 +8,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.data.model.Profile
 import com.sopt.dive.data.mock.homeProfiles
 import com.sopt.dive.data.mock.myProfile
@@ -21,17 +24,20 @@ import com.sopt.dive.ui.theme.Black3
 @Composable
 fun HomeRoute(
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     HomeScreen(
-        myProfile = myProfile,
-        homeProfiles = homeProfiles,
+        myProfile = uiState.myProfile,
+        homeProfiles = uiState.otherProfiles,
         modifier = modifier
     )
 }
 
 @Composable
 fun HomeScreen(
-    myProfile: Profile,
+    myProfile: Profile?,
     homeProfiles: List<Profile>,
     modifier: Modifier = Modifier,
 ) {
@@ -40,9 +46,11 @@ fun HomeScreen(
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 24.dp)
     ) {
         stickyHeader {
-            ProfileHeader(
-                myProfile = myProfile,
-            )
+            myProfile?.let {
+                ProfileHeader(
+                    myProfile = it,
+                )
+            }
         }
         items(homeProfiles) {
             ProfileCard(
