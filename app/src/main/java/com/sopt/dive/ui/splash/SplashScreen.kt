@@ -14,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.R
 import com.sopt.dive.data.datastore.DataStoreKeys
 import com.sopt.dive.data.datastore.dataStore
+import com.sopt.dive.data.model.UserPrefs
 import com.sopt.dive.ui.component.ScreenTitle
 import kotlinx.coroutines.flow.map
 
@@ -24,18 +25,25 @@ fun SplashScreen(
 ) {
     val context = LocalContext.current
 
-    // 저장된 로그인 데이터 불러오기
-    val isLoggedIn by context.dataStore.data
+    // 저장된 데이터 불러오기
+    val userPrefs by context.dataStore.data
         .map { preferences ->
-            preferences[DataStoreKeys.IS_LOGGED_IN]
+            UserPrefs(
+                isLoggedIn = preferences[DataStoreKeys.IS_LOGGED_IN],
+                id = preferences[DataStoreKeys.ID],
+                pw = preferences[DataStoreKeys.PW],
+                nickname = preferences[DataStoreKeys.NICKNAME],
+                mbti = preferences[DataStoreKeys.MBTI]
+            )
         }
         .collectAsStateWithLifecycle(null)
 
-    LaunchedEffect(isLoggedIn) {
-        when (isLoggedIn) {
-            null -> Unit
-            true ->  navigateToHome()
-            false -> navigateToLogin()
+    LaunchedEffect(userPrefs) {
+        userPrefs?.let {
+            when (it.isLoggedIn) {
+                true -> navigateToHome()
+                else -> navigateToLogin()
+            }
         }
     }
 
