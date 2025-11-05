@@ -1,4 +1,4 @@
-package com.sopt.dive.data
+package com.sopt.dive.data.model
 
 import androidx.annotation.DrawableRes
 

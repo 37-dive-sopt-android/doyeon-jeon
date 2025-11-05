@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.dive.data.Profile
-import com.sopt.dive.data.homeProfiles
-import com.sopt.dive.data.myProfile
+import com.sopt.dive.data.model.Profile
+import com.sopt.dive.data.mock.homeProfiles
+import com.sopt.dive.data.mock.myProfile
 import com.sopt.dive.ui.component.ProfileCard
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.Black3

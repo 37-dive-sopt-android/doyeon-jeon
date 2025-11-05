@@ -1,6 +1,8 @@
-package com.sopt.dive.data
+package com.sopt.dive.data.mock
 
 import com.sopt.dive.R
+import com.sopt.dive.data.model.Profile
+import com.sopt.dive.data.model.ProfileMusic
 
 val myProfile: Profile = Profile(
     image = R.drawable.chopper,

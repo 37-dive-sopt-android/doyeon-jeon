@@ -22,8 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.R
-import com.sopt.dive.data.Profile
-import com.sopt.dive.data.ProfileMusic
+import com.sopt.dive.data.model.Profile
+import com.sopt.dive.data.model.ProfileMusic
 import com.sopt.dive.ui.theme.Black1
 import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Red

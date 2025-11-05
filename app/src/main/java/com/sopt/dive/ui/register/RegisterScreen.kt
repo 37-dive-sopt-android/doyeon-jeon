@@ -25,8 +25,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
 import com.sopt.dive.R
-import com.sopt.dive.data.DataStoreKeys
-import com.sopt.dive.data.dataStore
+import com.sopt.dive.data.datastore.DataStoreKeys
+import com.sopt.dive.data.datastore.dataStore
 import com.sopt.dive.ui.component.AuthButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle

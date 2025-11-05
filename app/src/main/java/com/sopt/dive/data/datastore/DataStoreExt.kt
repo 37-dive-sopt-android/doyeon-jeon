@@ -1,4 +1,4 @@
-package com.sopt.dive.data
+package com.sopt.dive.data.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

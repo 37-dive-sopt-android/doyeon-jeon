@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.R
-import com.sopt.dive.data.DataStoreKeys
-import com.sopt.dive.data.UserPrefs
-import com.sopt.dive.data.dataStore
+import com.sopt.dive.data.datastore.DataStoreKeys
+import com.sopt.dive.data.model.UserPrefs
+import com.sopt.dive.data.datastore.dataStore
 import com.sopt.dive.ui.component.ScreenTitle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map

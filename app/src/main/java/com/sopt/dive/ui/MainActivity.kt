@@ -1,4 +1,4 @@
-package com.sopt.dive
+package com.sopt.dive.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.Companion.fillMaxSize(),
                     bottomBar = {
                         if (showNavBar) {
                             DiveBottomNavigationBar(
@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                                         restoreState = true
                                     }
                                 },
-                                modifier = Modifier
+                                modifier = Modifier.Companion
                                     .padding(horizontal = 20.dp, vertical = 0.dp)
                                     .navigationBarsPadding()
                             )
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(
-                        modifier = Modifier
+                        modifier = Modifier.Companion
                             .fillMaxSize()
                             .background(Background)
                     ) {
@@ -108,7 +108,7 @@ private fun DiveBottomNavigationBar(
                 onClick = { onNavigate(destination.route) },
                 icon = destination.icon,
                 label = destination.label,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.Companion.weight(1f),
                 selectedColor = destination.selectedColor,
                 unselectedColor = destination.unselectedColor
             )

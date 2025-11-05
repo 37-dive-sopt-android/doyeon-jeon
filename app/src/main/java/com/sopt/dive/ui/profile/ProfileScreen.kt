@@ -13,10 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.R
-import com.sopt.dive.data.DataStoreKeys
-import com.sopt.dive.data.UserPrefs
-import com.sopt.dive.data.dataStore
-import com.sopt.dive.data.myProfile
+import com.sopt.dive.data.datastore.DataStoreKeys
+import com.sopt.dive.data.model.UserPrefs
+import com.sopt.dive.data.datastore.dataStore
+import com.sopt.dive.data.mock.myProfile
 import com.sopt.dive.ui.component.InfoBox
 import com.sopt.dive.ui.component.ProfileCard
 import kotlinx.coroutines.flow.map
