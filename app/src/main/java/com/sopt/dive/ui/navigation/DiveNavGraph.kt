@@ -32,7 +32,7 @@ fun NavGraphBuilder.diveNavGraph(
                     popUpTo(Splash) { inclusive = true }
                 }
             },
-            navitageToLogin = {
+            navigateToLogin = {
                 navController.navigate(Login) {
                     popUpTo(Splash) { inclusive = true }
                 }
@@ -43,7 +43,7 @@ fun NavGraphBuilder.diveNavGraph(
         LoginScreen(
             navigateToHome = {
                 navController.navigate(Home) {
-                    popUpTo(Splash) { inclusive = true }
+                    popUpTo(Home) { inclusive = true }
                 }
             },
             navigateToRegister = {
