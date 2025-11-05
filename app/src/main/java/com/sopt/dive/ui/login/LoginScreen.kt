@@ -1,6 +1,5 @@
 package com.sopt.dive.ui.login
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -107,7 +106,10 @@ fun LoginScreen(
             onClick = {
                 val currentAccountInfo = accountInfo
                 when {
-                    currentAccountInfo == null -> {
+                    // 로딩 중
+                    currentAccountInfo == null -> Unit
+                    // 저장된 id/pw가 없는 경우
+                    currentAccountInfo.id == null || currentAccountInfo.pw == null -> {
                         Toast.makeText(
                             context,
                             context.getString(R.string.login_need_register_fail_message),
@@ -142,7 +144,8 @@ fun LoginScreen(
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = accountInfo != null
         )
     }
 }

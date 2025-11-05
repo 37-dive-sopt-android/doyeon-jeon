@@ -17,13 +17,14 @@ fun AuthButton(
     content: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
             .height(48.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Coral,
+            containerColor = Coral.copy(alpha = if (enabled) 1f else 0.4f),
         ),
     ) {
         Text(
@@ -35,10 +36,21 @@ fun AuthButton(
 
 @Preview
 @Composable
-fun AuthButtonPreview() {
+private fun AuthButtonPreview() {
     AuthButton(
         content = "안녕",
         onClick = { },
         modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Preview
+@Composable
+private fun AuthButtonDisabledPreview() {
+    AuthButton(
+        content = "안녕",
+        onClick = { },
+        modifier = Modifier.fillMaxWidth(),
+        enabled = false
     )
 }
