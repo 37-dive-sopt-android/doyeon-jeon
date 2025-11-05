@@ -1,5 +1,6 @@
 package com.sopt.dive.ui.login
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -104,38 +105,41 @@ fun LoginScreen(
         AuthButton(
             content = stringResource(R.string.login_button),
             onClick = {
-                // 회원가입 안 한 경우
-                if (accountInfo == null) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.login_need_register_fail_message),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@AuthButton
-                }
-                // id나 pw가 일치하지 않는 경우
-                if (inputId != accountInfo!!.id || inputPw != accountInfo!!.pw) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.login_invalid_fail_message),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                    return@AuthButton
-                }
-                // 위 케이스 모두 통과했다면 > 로그인
-                scope.launch {
-                    // 로그인 상태 저장
-                    context.dataStore.edit { user ->
-                        user[DataStoreKeys.IS_LOGGED_IN] = true
+                val currentAccountInfo = accountInfo
+                when {
+                    currentAccountInfo == null -> {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.login_need_register_fail_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    // 홈으로 이동
-                    navigateToHome()
-                    // 로그인 완료 토스트
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.login_success_message), Toast.LENGTH_SHORT
-                    ).show()
+                    // id나 pw가 일치하지 않는 경우
+                    inputId != currentAccountInfo.id || inputPw != currentAccountInfo.pw -> {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.login_invalid_fail_message),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                    // 위 케이스 모두 통과했다면 > 로그인
+                    else -> {
+                        scope.launch {
+                            // 로그인 상태 저장
+                            context.dataStore.edit { user ->
+                                user[DataStoreKeys.IS_LOGGED_IN] = true
+                            }
+                            // 홈으로 이동
+                            navigateToHome()
+                            // 로그인 완료 토스트
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.login_success_message),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth()
