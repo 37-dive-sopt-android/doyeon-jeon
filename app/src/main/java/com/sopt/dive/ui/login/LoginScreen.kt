@@ -27,7 +27,7 @@ import com.sopt.dive.R
 import com.sopt.dive.data.model.AccountInfo
 import com.sopt.dive.data.datastore.DataStoreKeys
 import com.sopt.dive.data.datastore.dataStore
-import com.sopt.dive.ui.component.AuthButton
+import com.sopt.dive.ui.component.DiveButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.DiveTextButton
 import com.sopt.dive.ui.component.ScreenTitle
@@ -170,7 +170,7 @@ fun LoginScreen(
         )
         Spacer(Modifier.height(16.dp))
         // 로그인 버튼
-        AuthButton(
+        DiveButton(
             content = stringResource(R.string.login_button),
             onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth(),

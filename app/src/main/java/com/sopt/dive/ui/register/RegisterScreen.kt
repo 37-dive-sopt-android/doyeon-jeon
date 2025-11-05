@@ -24,7 +24,7 @@ import androidx.datastore.preferences.core.edit
 import com.sopt.dive.R
 import com.sopt.dive.data.datastore.DataStoreKeys
 import com.sopt.dive.data.datastore.dataStore
-import com.sopt.dive.ui.component.AuthButton
+import com.sopt.dive.ui.component.DiveButton
 import com.sopt.dive.ui.component.AuthInputField
 import com.sopt.dive.ui.component.ScreenTitle
 import kotlinx.coroutines.launch
@@ -178,7 +178,7 @@ fun RegisterScreen(
         }
         Spacer(Modifier.weight(1f))
         // 회원가입 버튼
-        AuthButton(
+        DiveButton(
             content = stringResource(R.string.register_button),
             onClick = onRegisterClick,
             modifier = Modifier.fillMaxWidth()

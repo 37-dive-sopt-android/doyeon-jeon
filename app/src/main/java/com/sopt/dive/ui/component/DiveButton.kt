@@ -13,7 +13,7 @@ import com.sopt.dive.ui.theme.Coral
 import com.sopt.dive.ui.theme.Typography
 
 @Composable
-fun AuthButton(
+fun DiveButton(
     content: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -37,7 +37,7 @@ fun AuthButton(
 @Preview
 @Composable
 private fun AuthButtonPreview() {
-    AuthButton(
+    DiveButton(
         content = "안녕",
         onClick = { },
         modifier = Modifier.fillMaxWidth()
@@ -47,7 +47,7 @@ private fun AuthButtonPreview() {
 @Preview
 @Composable
 private fun AuthButtonDisabledPreview() {
-    AuthButton(
+    DiveButton(
         content = "안녕",
         onClick = { },
         modifier = Modifier.fillMaxWidth(),
