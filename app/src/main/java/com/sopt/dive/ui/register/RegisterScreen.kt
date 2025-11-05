@@ -141,8 +141,9 @@ fun RegisterScreen(
                             ).show()
                             return@AuthButton
                         }
-                        // 위 케이스 모두 통과했다면 > 회원가입 (유저정보 저장)
+                        // 위 케이스 모두 통과했다면 > 회원가입
                         scope.launch {
+                            // 유저 정보 저장
                             context.dataStore.edit { user ->
                                 user[DataStoreKeys.IS_LOGGED_IN] = false
                                 user[DataStoreKeys.ID] = id
@@ -150,14 +151,14 @@ fun RegisterScreen(
                                 user[DataStoreKeys.NICKNAME] = nickname
                                 user[DataStoreKeys.MBTI] = mbti
                             }
+                            // 로그인 페이지로 돌아가기
+                            popToLogin()
+                            // 회원가입 완료 토스트
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.register_success_message), Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        // 로그인 페이지로 돌아가기
-                        popToLogin()
-                        // 회원가입 완료 토스트
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.register_success_message), Toast.LENGTH_SHORT
-                        ).show()
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

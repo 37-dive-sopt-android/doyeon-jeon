@@ -125,17 +125,18 @@ fun LoginScreen(
                 }
                 // 위 케이스 모두 통과했다면 > 로그인
                 scope.launch {
+                    // 로그인 상태 저장
                     context.dataStore.edit { user ->
                         user[DataStoreKeys.IS_LOGGED_IN] = true
                     }
+                    // 홈으로 이동
+                    navigateToHome()
+                    // 로그인 완료 토스트
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.login_success_message), Toast.LENGTH_SHORT
+                    ).show()
                 }
-                // 홈으로 이동
-                navigateToHome()
-                // 로그인 완료 토스트
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.login_success_message), Toast.LENGTH_SHORT
-                ).show()
             },
             modifier = Modifier.fillMaxWidth()
         )
