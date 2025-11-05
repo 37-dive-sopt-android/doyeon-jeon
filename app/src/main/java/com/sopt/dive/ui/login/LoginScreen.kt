@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -34,9 +35,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(
+fun LoginRoute(
     navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -57,8 +59,75 @@ fun LoginScreen(
         }
         .collectAsStateWithLifecycle(null)
 
+    fun onLoginClick() {
+        val currentAccountInfo = accountInfo
+        when {
+            // 로딩 중
+            currentAccountInfo == null -> Unit
+            // 저장된 id/pw가 없는 경우
+            currentAccountInfo.id == null || currentAccountInfo.pw == null -> {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.login_need_register_fail_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            // id나 pw가 일치하지 않는 경우
+            inputId != currentAccountInfo.id || inputPw != currentAccountInfo.pw -> {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.login_invalid_fail_message),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            // 위 케이스 모두 통과했다면 > 로그인
+            else -> {
+                scope.launch {
+                    // 로그인 상태 저장
+                    context.dataStore.edit { user ->
+                        user[DataStoreKeys.IS_LOGGED_IN] = true
+                    }
+                    // 홈으로 이동
+                    navigateToHome()
+                    // 로그인 완료 토스트
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.login_success_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    LoginScreen(
+        focusManager = focusManager,
+        inputId = inputId,
+        onInputIdChanged = { inputId = it },
+        inputPw = inputPw,
+        onInputPwChanged = { inputPw = it },
+        onRegisterClick = navigateToRegister,
+        onLoginClick = { onLoginClick() },
+        isLoginButtonEnabled = accountInfo != null,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun LoginScreen(
+    focusManager: FocusManager,
+    inputId: String,
+    onInputIdChanged: (String) -> Unit,
+    inputPw: String,
+    onInputPwChanged: (String) -> Unit,
+    onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    isLoginButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = Modifier.padding(
+        modifier = modifier.padding(
             vertical = 24.dp,
             horizontal = 20.dp
         )
@@ -78,7 +147,7 @@ fun LoginScreen(
             AuthInputField(
                 label = stringResource(R.string.login_id_label),
                 value = inputId,
-                onValueChanged = { inputId = it },
+                onValueChanged = onInputIdChanged,
                 placeholder = stringResource(R.string.login_id_placeholder),
                 focusManager = focusManager,
                 imeAction = ImeAction.Next,
@@ -86,7 +155,7 @@ fun LoginScreen(
             AuthInputField(
                 label = stringResource(R.string.login_pw_label),
                 value = inputPw,
-                onValueChanged = { inputPw = it },
+                onValueChanged = onInputPwChanged,
                 placeholder = stringResource(R.string.login_pw_placeholder),
                 isPw = true,
                 focusManager = focusManager,
@@ -96,56 +165,16 @@ fun LoginScreen(
         // 회원가입 하러 가는 버튼
         DiveTextButton(
             label = stringResource(R.string.login_to_register_button),
-            onClick = { navigateToRegister() },
+            onClick = onRegisterClick,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(Modifier.height(16.dp))
         // 로그인 버튼
         AuthButton(
             content = stringResource(R.string.login_button),
-            onClick = {
-                val currentAccountInfo = accountInfo
-                when {
-                    // 로딩 중
-                    currentAccountInfo == null -> Unit
-                    // 저장된 id/pw가 없는 경우
-                    currentAccountInfo.id == null || currentAccountInfo.pw == null -> {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.login_need_register_fail_message),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    // id나 pw가 일치하지 않는 경우
-                    inputId != currentAccountInfo.id || inputPw != currentAccountInfo.pw -> {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.login_invalid_fail_message),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                    // 위 케이스 모두 통과했다면 > 로그인
-                    else -> {
-                        scope.launch {
-                            // 로그인 상태 저장
-                            context.dataStore.edit { user ->
-                                user[DataStoreKeys.IS_LOGGED_IN] = true
-                            }
-                            // 홈으로 이동
-                            navigateToHome()
-                            // 로그인 완료 토스트
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.login_success_message),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-            },
+            onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth(),
-            enabled = accountInfo != null
+            enabled = isLoginButtonEnabled
         )
     }
 }

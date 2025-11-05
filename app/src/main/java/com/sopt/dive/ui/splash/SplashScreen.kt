@@ -19,9 +19,10 @@ import com.sopt.dive.ui.component.ScreenTitle
 import kotlinx.coroutines.flow.map
 
 @Composable
-fun SplashScreen(
+fun SplashRoute(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
 
@@ -47,8 +48,17 @@ fun SplashScreen(
         }
     }
 
+    SplashScreen(
+        modifier = modifier
+    )
+}
+
+@Composable
+fun SplashScreen(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         ScreenTitle(stringResource(R.string.sopt))
@@ -58,8 +68,5 @@ fun SplashScreen(
 @Preview(showBackground = true)
 @Composable
 private fun SplashScreenPreview() {
-    SplashScreen(
-        navigateToHome = {},
-        navigateToLogin = {}
-    )
+    SplashScreen()
 }

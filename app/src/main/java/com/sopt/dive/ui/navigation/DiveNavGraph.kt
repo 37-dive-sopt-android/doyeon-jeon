@@ -9,15 +9,15 @@ import androidx.navigation.compose.composable
 import com.sopt.dive.ui.home.Home
 import com.sopt.dive.ui.home.HomeRoute
 import com.sopt.dive.ui.login.Login
-import com.sopt.dive.ui.login.LoginScreen
+import com.sopt.dive.ui.login.LoginRoute
 import com.sopt.dive.ui.profile.Profile
 import com.sopt.dive.ui.profile.ProfileRoute
 import com.sopt.dive.ui.register.Register
-import com.sopt.dive.ui.register.RegisterScreen
+import com.sopt.dive.ui.register.RegisterRoute
 import com.sopt.dive.ui.search.Search
 import com.sopt.dive.ui.search.SearchRoute
 import com.sopt.dive.ui.splash.Splash
-import com.sopt.dive.ui.splash.SplashScreen
+import com.sopt.dive.ui.splash.SplashRoute
 
 fun NavGraphBuilder.diveNavGraph(
     // Screen에서 navigation 필요한 경우,
@@ -26,7 +26,7 @@ fun NavGraphBuilder.diveNavGraph(
     innerPadding: PaddingValues,
 ) {
     composable<Splash> {
-        SplashScreen(
+        SplashRoute(
             navigateToHome = {
                 navController.navigate(Home) {
                     popUpTo(Splash) { inclusive = true }
@@ -36,26 +36,29 @@ fun NavGraphBuilder.diveNavGraph(
                 navController.navigate(Login) {
                     popUpTo(Splash) { inclusive = true }
                 }
-            }
+            },
+            modifier = Modifier.padding(innerPadding)
         )
     }
     composable<Login> {
-        LoginScreen(
+        LoginRoute(
             navigateToHome = {
                 navController.navigate(Home) {
-                    popUpTo(Home) { inclusive = true }
+                    popUpTo(Login) { inclusive = true }
                 }
             },
             navigateToRegister = {
                 navController.navigate(Register)
-            }
+            },
+            modifier = Modifier.padding(innerPadding)
         )
     }
     composable<Register> {
-        RegisterScreen(
+        RegisterRoute(
             popToLogin = {
                 navController.popBackStack()
-            }
+            },
+            modifier = Modifier.padding(innerPadding)
         )
     }
     composable<Home> {
