@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.navigation)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.lifecycle)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
