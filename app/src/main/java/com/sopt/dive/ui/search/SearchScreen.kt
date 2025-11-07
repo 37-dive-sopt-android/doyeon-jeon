@@ -1,8 +1,13 @@
 package com.sopt.dive.ui.search
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.sopt.dive.R
 import com.sopt.dive.ui.component.DiveButton
+import com.sopt.dive.ui.component.DoubleFlippableCard
 import com.sopt.dive.ui.component.FlippableCard
 import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Typography
@@ -33,10 +40,14 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
 ) {
     var isFlipping by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceAround,
+        modifier = modifier
+            .fillMaxSize()
+            .padding(vertical = 40.dp)
+            .verticalScroll(scrollState),
+        verticalArrangement = Arrangement.spacedBy(100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -51,6 +62,7 @@ fun SearchScreen(
             content = if (isFlipping) stringResource(R.string.card_end_button) else stringResource(R.string.card_start_button),
             onClick = { isFlipping = !isFlipping },
         )
+        DoubleFlippableCard()
     }
 }
 
