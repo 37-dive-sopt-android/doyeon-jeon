@@ -63,7 +63,10 @@ fun FlippableCard(
         }
     }
 
-    Box(
+    AsyncImage(
+        model = if (rotation.value < 90f) frontImage else backImage,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
         modifier = modifier
             .graphicsLayer {
                 rotationY = rotation.value
@@ -72,14 +75,7 @@ fun FlippableCard(
             .width(width)
             .aspectRatio(3 / 5f)
             .clip(RoundedCornerShape(15.dp))
-    ) {
-        AsyncImage(
-            model = if (rotation.value < 90f) frontImage else backImage,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
+    )
 }
 
 @Preview
