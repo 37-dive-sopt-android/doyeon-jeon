@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import com.sopt.dive.ui.theme.Black1
-import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Coral
 import com.sopt.dive.ui.theme.Typography
 import com.sopt.dive.ui.theme.White
