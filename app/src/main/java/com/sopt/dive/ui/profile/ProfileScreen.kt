@@ -8,40 +8,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
-import com.sopt.dive.data.datastore.DataStoreKeys
-import com.sopt.dive.data.model.UserPrefs
-import com.sopt.dive.data.datastore.dataStore
 import com.sopt.dive.data.mock.myProfile
+import com.sopt.dive.data.model.UserPrefs
 import com.sopt.dive.ui.component.InfoBox
 import com.sopt.dive.ui.component.ProfileCard
-import kotlinx.coroutines.flow.map
 
 @Composable
 fun ProfileRoute(
     modifier: Modifier = Modifier,
-) {
-    val context = LocalContext.current
-
-    // 저장된 데이터 불러오기
-    val userPrefs by context.dataStore.data
-        .map { preferences ->
-            UserPrefs(
-                isLoggedIn = true,
-                id = preferences[DataStoreKeys.ID],
-                pw = preferences[DataStoreKeys.PW],
-                nickname = preferences[DataStoreKeys.NICKNAME],
-                mbti = preferences[DataStoreKeys.MBTI]
-            )
-        }
-        .collectAsStateWithLifecycle(null)
+    viewModel: ProfileViewModel = viewModel(
+        factory = ProfileViewModel.Factory
+    ),
+    ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ProfileScreen(
-        userPrefs = userPrefs,
+        userPrefs = uiState.userPrefs,
         modifier = modifier
     )
 }

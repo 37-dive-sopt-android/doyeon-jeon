@@ -33,4 +33,5 @@
     <string name="sopt">SOPT</string>
     <string name="card_start_button">카드 뒤집기 시작</string>
     <string name="card_end_button">카드 뒤집기 멈춰</string>
+    <string name="login_need_id_and_pw">아이디와 비밀번호를 모두 입력해주세요</string>
 </resources>
