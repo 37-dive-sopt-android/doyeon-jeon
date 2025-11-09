@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
+import com.sopt.dive.ui.theme.Black1
 import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Coral
 import com.sopt.dive.ui.theme.Typography
@@ -105,8 +106,13 @@ fun DoubleFlippableCard(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(height = 400.dp, width = 300.dp)
-                .zIndex(if (showImage) 1f else 0f)
+                .zIndex(if (rotation < 90) 1f else -1f)
                 .offset(x = offset, y = offset)
+                .shadow(
+                    elevation = if (rotation < 30) 4.dp else 0.dp,
+                    spotColor = Black1,
+                    shape = imageShape,
+                )
                 .clickable(
                     indication = null,
                     interactionSource = remember { MutableInteractionSource() }
@@ -123,11 +129,11 @@ fun DoubleFlippableCard(
         Box(
             modifier = Modifier
                 .size(height = 390.dp, width = 290.dp)
-                .zIndex(if (showImage) 0f else 1f)
+                .zIndex(0f)
                 .shadow(
-                    elevation = 4.dp,
-                    spotColor = Black2,
-                    shape = textBoxShape
+                    elevation = if (showImage) 0.dp else 4.dp,
+                    spotColor = Black1,
+                    shape = textBoxShape,
                 )
                 .clip(textBoxShape)
                 .background(Coral)
