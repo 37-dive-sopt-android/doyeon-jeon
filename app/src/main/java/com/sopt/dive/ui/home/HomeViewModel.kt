@@ -6,6 +6,7 @@ import com.sopt.dive.data.mock.myProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class HomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -17,14 +18,18 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getMyProfile() {
-        _uiState.value = _uiState.value.copy(
-            myProfile = myProfile
-        )
+        _uiState.update {
+            it.copy(
+                myProfile = myProfile
+            )
+        }
     }
 
     fun getOtherProfiles() {
-        _uiState.value = _uiState.value.copy(
-            otherProfiles = homeProfiles
-        )
+        _uiState.update {
+            it.copy(
+                otherProfiles = homeProfiles
+            )
+        }
     }
 }
