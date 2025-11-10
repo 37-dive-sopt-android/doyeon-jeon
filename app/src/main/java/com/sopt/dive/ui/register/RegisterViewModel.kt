@@ -76,6 +76,7 @@ class RegisterViewModel(
                         R.string.register_pw_fail_message
                     )
                 )
+                return@launch
             }
             // 닉네임이 유효하지 않은 경우
             if (_uiState.value.nickname.isBlank()) {
