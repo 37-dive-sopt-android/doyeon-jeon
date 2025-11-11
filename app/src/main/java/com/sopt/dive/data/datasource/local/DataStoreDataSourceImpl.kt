@@ -49,7 +49,7 @@ class DataStoreDataSourceImpl(
 
     override suspend fun setLoginStatus(status: Boolean) {
         dataStore.edit { user ->
-            user[DataStoreKeys.IS_LOGGED_IN] = true
+            user[DataStoreKeys.IS_LOGGED_IN] = status
         }
     }
 }
