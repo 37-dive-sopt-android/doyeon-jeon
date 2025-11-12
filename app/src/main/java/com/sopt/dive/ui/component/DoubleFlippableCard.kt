@@ -1,6 +1,5 @@
 package com.sopt.dive.ui.component
 
-import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -27,6 +26,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
@@ -34,6 +34,7 @@ import com.sopt.dive.ui.theme.Black1
 import com.sopt.dive.ui.theme.Coral
 import com.sopt.dive.ui.theme.Typography
 import com.sopt.dive.ui.theme.White
+import kotlin.math.roundToInt
 
 @Composable
 fun DoubleFlippableCard(
@@ -58,15 +59,15 @@ fun DoubleFlippableCard(
         bottomEnd = 100.dp
     )
 
+    val springSpec = spring<Float>(
+        dampingRatio = 0.7f,
+        stiffness = 177.8f
+    )
+
     // 이미지 회전
     val rotation by transition.animateFloat(
         label = "rotation",
-        transitionSpec = {
-            spring(
-                dampingRatio = 0.8f,
-                stiffness = 177.8f
-            )
-        }
+        transitionSpec = { springSpec }
     ) {
         when (it) {
             true -> 0f
@@ -88,10 +89,12 @@ fun DoubleFlippableCard(
     }
 
     // 이미지 위치
-    val offset by transition.animateDp {
+    val offset by transition.animateFloat(
+        transitionSpec = { springSpec }
+    ) {
         when (it) {
-            true -> 0.dp
-            false -> 20.dp
+            true -> 0f
+            false -> 20f
         }
     }
 
@@ -106,7 +109,12 @@ fun DoubleFlippableCard(
             modifier = Modifier
                 .size(height = 400.dp, width = 300.dp)
                 .zIndex(if (rotation < 90) 1f else -1f)
-                .offset(x = offset, y = offset)
+                .offset {
+                    IntOffset(
+                        x = offset.dp.toPx().roundToInt(),
+                        y = offset.dp.toPx().roundToInt()
+                    )
+                }
                 .shadow(
                     elevation = if (rotation < 30) 4.dp else 0.dp,
                     spotColor = Black1,
