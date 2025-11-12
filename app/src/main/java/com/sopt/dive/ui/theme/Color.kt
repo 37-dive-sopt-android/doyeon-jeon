@@ -19,3 +19,4 @@ val Black2 = Color(0xFF5A5A5A)
 val Black3 = Color(0xFF9A9A9A)
 
 val Background = Color(0xFFFDFDFD)
+val White = Color(0xFFFEFEFE)
