@@ -1,0 +1,19 @@
+package com.sopt.dive.data.repository.user
+
+import com.sopt.dive.data.repository.user.model.UserModel
+
+interface UserRepository {
+
+    suspend fun getUserInfo(
+        userId: Int,
+    ): Result<UserModel>
+
+    suspend fun signUp(
+        id: String,
+        password: String,
+        name: String,
+        email: String,
+        age: Int,
+    ): Result<Unit>
+
+}
