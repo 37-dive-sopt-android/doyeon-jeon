@@ -1,5 +1,6 @@
 package com.sopt.dive.data.repository.user
 
+import com.sopt.dive.core.manager.AuthManager
 import com.sopt.dive.core.util.suspendRunCatching
 import com.sopt.dive.data.datasource.remote.user.UserDataSource
 import com.sopt.dive.data.repository.user.model.UserModel
@@ -13,6 +14,11 @@ class UserRepositoryImpl(
     override suspend fun getUserInfo(userId: Int): Result<UserModel> =
         suspendRunCatching {
             userDataSource.getUserInfo(userId).data.toModel()
+        }
+
+    override suspend fun getMyInfo(): Result<UserModel> =
+        suspendRunCatching {
+            userDataSource.getUserInfo(AuthManager.userId!!).data.toModel()
         }
 
     override suspend fun signUp(

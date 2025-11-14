@@ -42,4 +42,8 @@
     <string name="register_age_placeholder">나이를 입력해주세요</string>
     <string name="timeout_error_message">네트워크 상태 확인 후, 다시 시도해주세요</string>
     <string name="unknown_error_message">알 수 없는 에러가 발생했어요. 문제가 지속된다면 고객센터로 문의주세요.</string>
+    <string name="profile_id_label">ID</string>
+    <string name="profile_nickname_label">NICKNAME</string>
+    <string name="profile_email_label">EMAIL</string>
+    <string name="profile_age_label">AGE</string>
 </resources>

@@ -8,6 +8,9 @@ interface UserRepository {
         userId: Int,
     ): Result<UserModel>
 
+    suspend fun getMyInfo(
+    ): Result<UserModel>
+
     suspend fun signUp(
         id: String,
         password: String,
