@@ -11,14 +11,14 @@ class AuthRepositoryImpl(
     override suspend fun login(
         id: String,
         password: String,
-    ): Result<Unit> =
+    ): Result<Int> =
         suspendRunCatching {
             authDataSource.login(
                 body = LoginRequestDto(
                     username = id,
                     password = password
                 )
-            )
+            ).data.userId
         }
 
 }

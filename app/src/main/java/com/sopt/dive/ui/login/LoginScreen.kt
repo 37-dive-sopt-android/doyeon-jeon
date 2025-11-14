@@ -41,8 +41,6 @@ fun LoginRoute(
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(Unit) {
-        viewModel.getAccountInfo()
-
         viewModel.sideEffect.collect {
             when (it) {
                 is LoginSideEffect.NavigateToHome -> navigateToHome()
@@ -50,6 +48,9 @@ fun LoginRoute(
                     context,
                     context.getString(it.message),
                     Toast.LENGTH_SHORT
+                ).show()
+                is LoginSideEffect.ShowStringToast -> Toast.makeText(
+                    context, it.message, Toast.LENGTH_SHORT
                 ).show()
             }
         }
