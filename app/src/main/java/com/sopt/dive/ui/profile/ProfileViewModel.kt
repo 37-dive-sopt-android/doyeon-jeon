@@ -2,10 +2,13 @@ package com.sopt.dive.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
+import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
+import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
@@ -62,11 +65,16 @@ class ProfileViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras,
             ): T {
+                val application = checkNotNull(extras[APPLICATION_KEY])
+                val dataStoreDataSource = DataStoreDataSourceImpl(
+                    application.dataStore
+                )
                 val userDataSource = UserDataSourceImpl(
                     userService = ServicePool.userService
                 )
                 val userRepository = UserRepositoryImpl(
-                    userDataSource = userDataSource
+                    dataStoreDataSource = dataStoreDataSource,
+                    userDataSource = userDataSource,
                 )
                 return ProfileViewModel(userRepository) as T
             }

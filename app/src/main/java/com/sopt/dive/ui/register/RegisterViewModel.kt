@@ -3,10 +3,13 @@ package com.sopt.dive.ui.register
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
+import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
+import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
@@ -162,11 +165,16 @@ class RegisterViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras,
             ): T {
+                val application = checkNotNull(extras[APPLICATION_KEY])
+                val dataStoreDataSource = DataStoreDataSourceImpl(
+                    application.dataStore
+                )
                 val userDataSource = UserDataSourceImpl(
                     userService = ServicePool.userService
                 )
                 val userRepository = UserRepositoryImpl(
-                    userDataSource = userDataSource
+                    userDataSource = userDataSource,
+                    dataStoreDataSource = dataStoreDataSource,
                 )
                 return RegisterViewModel(userRepository) as T
             }
