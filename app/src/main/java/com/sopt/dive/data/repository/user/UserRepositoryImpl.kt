@@ -2,6 +2,7 @@ package com.sopt.dive.data.repository.user
 
 import com.sopt.dive.core.manager.AuthManager
 import com.sopt.dive.core.util.suspendRunCatching
+import com.sopt.dive.data.datasource.local.DataStoreDataSource
 import com.sopt.dive.data.datasource.remote.user.UserDataSource
 import com.sopt.dive.data.repository.user.model.UserModel
 import com.sopt.dive.data.repository.user.model.toModel

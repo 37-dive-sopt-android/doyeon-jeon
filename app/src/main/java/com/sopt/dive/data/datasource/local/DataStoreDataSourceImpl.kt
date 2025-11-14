@@ -32,6 +32,13 @@ class DataStoreDataSourceImpl(
         )
     }.firstOrNull()
 
+    override suspend fun setAccountInfo(id: String, pw: String) {
+        dataStore.edit { user ->
+            user[DataStoreKeys.ID] = id
+            user[DataStoreKeys.PW] = pw
+        }
+    }
+
     override suspend fun setUserInfo(
         id: String,
         pw: String,

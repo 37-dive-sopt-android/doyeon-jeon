@@ -7,4 +7,7 @@ interface AuthRepository {
         password: String,
     ): Result<Int>
 
+    suspend fun autoLogin(
+    ): Result<Int>
+
 }

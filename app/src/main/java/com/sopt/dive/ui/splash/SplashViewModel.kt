@@ -1,21 +1,23 @@
 package com.sopt.dive.ui.splash
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.sopt.dive.data.datasource.local.DataStoreDataSource
+import com.sopt.dive.core.network.ServicePool
 import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
 import com.sopt.dive.data.datasource.local.dataStore
+import com.sopt.dive.data.datasource.remote.auth.AuthDataSourceImpl
+import com.sopt.dive.data.repository.auth.AuthRepository
+import com.sopt.dive.data.repository.auth.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class SplashViewModel(
-    private val dataStoreDataSource: DataStoreDataSource,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
     private val _sideEffect = MutableSharedFlow<SplashSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
@@ -26,23 +28,17 @@ class SplashViewModel(
 
     fun checkLoginStatus() {
         viewModelScope.launch {
-            Log.d("DIVE", "userInfo 가져오기 시작")
-            val userInfo = dataStoreDataSource.getUserInfo()
-            Log.d("DIVE", "userInfo 가져오기 끝")
-
-            if (userInfo != null && userInfo.isLoggedIn == true && userInfo.id != null && userInfo.pw != null && userInfo.nickname != null && userInfo.mbti != null) {
-                Log.d("DIVE", "홈 가야 함")
-
-                _sideEffect.emit(
-                    SplashSideEffect.NavigateToHome
-                )
-            } else {
-                Log.d("DIVE", "로그인 가야 함")
-
-                _sideEffect.emit(
-                    SplashSideEffect.NavigateToLogin
-                )
-            }
+            authRepository.autoLogin()
+                .onSuccess {
+                    _sideEffect.emit(
+                        SplashSideEffect.NavigateToHome
+                    )
+                }
+                .onFailure {
+                    _sideEffect.emit(
+                        SplashSideEffect.NavigateToLogin
+                    )
+                }
         }
     }
 
@@ -57,8 +53,15 @@ class SplashViewModel(
                 val dataStoreDataSource = DataStoreDataSourceImpl(
                     application.dataStore
                 )
+                val authDataSource = AuthDataSourceImpl(
+                    authService = ServicePool.authService
+                )
+                val authRepository = AuthRepositoryImpl(
+                    authDataSource = authDataSource,
+                    dataStoreDataSource = dataStoreDataSource
+                )
 
-                return SplashViewModel(dataStoreDataSource) as T
+                return SplashViewModel(authRepository) as T
             }
         }
     }
