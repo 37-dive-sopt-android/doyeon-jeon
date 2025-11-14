@@ -8,17 +8,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
+import com.sopt.dive.core.util.getErrorData
 import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
 import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 @Suppress("UNCHECKED_CAST")
 class RegisterViewModel(
@@ -148,12 +151,44 @@ class RegisterViewModel(
                         R.string.register_success_message
                     )
                 )
-            }.onFailure {
-                _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
-                        R.string.register_fail_message
+            }.onFailure { e ->
+                when (e) {
+                    is HttpException -> {
+                        val errorData = getErrorData(e)
+                        when {
+                            errorData == null -> _sideEffect.emit(
+                                RegisterSideEffect.ShowToast(
+                                    message = R.string.unknown_error_message
+                                )
+                            )
+
+                            errorData.data.code == "COMMON-409" -> _sideEffect.emit(
+                                RegisterSideEffect.ShowToast(
+                                    message = R.string.register_duplicate_id_error_message
+                                )
+                            )
+
+                            else -> _sideEffect.emit(
+                                RegisterSideEffect.ShowToast(
+                                    message = R.string.unknown_error_message
+                                )
+                            )
+                        }
+                    }
+
+                    is TimeoutCancellationException -> _sideEffect.emit(
+                        RegisterSideEffect.ShowToast(
+                            message = R.string.timeout_error_message
+                        )
                     )
-                )
+
+                    else -> _sideEffect.emit(
+                        RegisterSideEffect.ShowToast(
+                            message = R.string.unknown_error_message
+                        )
+                    )
+
+                }
             }
         }
     }
