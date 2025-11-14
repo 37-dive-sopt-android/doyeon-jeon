@@ -34,8 +34,8 @@ class AuthRepositoryImpl(
     // dataSource에서 꺼내서 위의 login 호출하기
     override suspend fun autoLogin(): Result<Int> {
         val localAccountInfo = dataStoreDataSource.getAccountInfo()
-        return if (localAccountInfo != null && localAccountInfo.id != null && localAccountInfo.pw != null) {
-            login(localAccountInfo.id, localAccountInfo.pw)
+        return if (localAccountInfo != null) {
+            login(localAccountInfo.id!!, localAccountInfo.pw!!)
         } else {
             Result.failure(Exception())
         }
