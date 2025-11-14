@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ fun AuthInputField(
     isPw: Boolean = false,
     maxLines: Int = 1,
     imeAction: ImeAction = ImeAction.Done,
+    keyboardType: KeyboardType = KeyboardType.Text
     ) {
     Column(
         modifier = modifier
@@ -55,7 +57,8 @@ fun AuthInputField(
             maxLines = maxLines,
             // imeAction 적용
             keyboardOptions = KeyboardOptions(
-                imeAction = imeAction
+                imeAction = imeAction,
+                keyboardType = keyboardType
             ),
             // imeAction에 따른 기능 정의
             // - Done > 포커스 해제
@@ -88,14 +91,3 @@ fun AuthInputField(
         )
     }
 }
-
-//@Preview(heightDp = 80)
-//@Composable
-//fun AuthInputFieldPreview() {
-//    AuthInputField(
-//        label = "안녕",
-//        value = "하니?",
-//        onValueChanged = {},
-//        placeholder = "",
-//    )
-//}

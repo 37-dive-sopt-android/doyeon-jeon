@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -58,9 +59,12 @@ fun RegisterRoute(
         onPwChanged = viewModel::onPwChanged,
         nickname = uiState.nickname,
         onNicknameChanged = viewModel::onNicknameChanged,
-        mbti = uiState.mbti,
-        onMbtiChanged = viewModel::onMbtiChanged,
+        email = uiState.email,
+        onEmailChanged = viewModel::onEmailChanged,
+        age = uiState.age,
+        onAgeChanged = viewModel::onAgeChanged,
         onRegisterClick = viewModel::onRegisterClick,
+        isRegisterButtonEnabled = uiState.isRegisterButtonEnabled,
         modifier = modifier
     )
 }
@@ -74,9 +78,12 @@ fun RegisterScreen(
     onPwChanged: (String) -> Unit,
     nickname: String,
     onNicknameChanged: (String) -> Unit,
-    mbti: String,
-    onMbtiChanged: (String) -> Unit,
+    email: String,
+    onEmailChanged: (String) -> Unit,
+    age: String,
+    onAgeChanged: (String) -> Unit,
     onRegisterClick: () -> Unit,
+    isRegisterButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -118,11 +125,21 @@ fun RegisterScreen(
                 imeAction = ImeAction.Next,
             )
             AuthInputField(
-                label = stringResource(R.string.register_mbti_label),
-                value = mbti,
-                onValueChanged = onMbtiChanged,
-                placeholder = stringResource(R.string.register_mbti_placeholder),
+                label = stringResource(R.string.register_email_label),
+                value = email,
+                onValueChanged = onEmailChanged,
+                placeholder = stringResource(R.string.register_email_placeholder),
                 focusManager = focusManager,
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email
+            )
+            AuthInputField(
+                label = stringResource(R.string.register_age_label),
+                value = age,
+                onValueChanged = onAgeChanged,
+                placeholder = stringResource(R.string.register_age_placeholder),
+                focusManager = focusManager,
+                keyboardType = KeyboardType.Number
             )
         }
         Spacer(Modifier.weight(1f))
@@ -130,7 +147,8 @@ fun RegisterScreen(
         DiveButton(
             content = stringResource(R.string.register_button),
             onClick = onRegisterClick,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = isRegisterButtonEnabled
         )
     }
 }

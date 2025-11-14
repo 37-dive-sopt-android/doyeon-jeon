@@ -25,13 +25,19 @@
     <string name="register_mbti_label">MBTI</string>
     <string name="register_mbti_placeholder">MBTI를 입력해주세요</string>
     <string name="register_button">회원가입하기</string>
-    <string name="register_id_fail_message">아이디는 6~10자 입력해주세요</string>
-    <string name="register_pw_fail_message">비밀번호는 8~12자 입력해주세요</string>
+    <string name="register_id_fail_message">아이디는 6~10자, 영어 또는 숫자로만 입력해주세요</string>
+    <string name="register_pw_fail_message">비밀번호는 8~12자, 특수문자 및 대문자 하나 이상 포함해 입력해주세요</string>
     <string name="register_nickname_fail_message">닉네임을 입력해주세요</string>
-    <string name="register_mbti_fail_message">MBTI는 4자 입력해주세요</string>
     <string name="register_success_message">회원가입에 성공했어요</string>
     <string name="sopt">SOPT</string>
     <string name="card_start_button">카드 뒤집기 시작</string>
     <string name="card_end_button">카드 뒤집기 멈춰</string>
     <string name="login_need_id_and_pw">아이디와 비밀번호를 모두 입력해주세요</string>
+    <string name="register_fail_message">회원가입에 실패했어요. 다시 시도해주세요.</string>
+    <string name="register_email_fail_message">올바른 이메일 형식으로 입력해주세요</string>
+    <string name="register_age_fail_message">나이를 올바르게 입력해주세요</string>
+    <string name="register_email_label">EMAIL</string>
+    <string name="register_email_placeholder">이메일을 입력해주세요</string>
+    <string name="register_age_label">AGE</string>
+    <string name="register_age_placeholder">나이를 입력해주세요</string>
 </resources>
