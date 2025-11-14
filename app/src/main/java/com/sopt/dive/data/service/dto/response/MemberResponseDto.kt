@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class MemberResponseDto(
     @SerialName("id")
     val id: Int,
-    @SerialName("usrename")
+    @SerialName("username")
     val username: String,
     @SerialName("name")
     val name: String,

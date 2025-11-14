@@ -15,7 +15,7 @@ interface UserService {
         @Path(value = "id") userId: Int,
     ): BaseResponse<MemberResponseDto>
 
-    @POST("/users")
+    @POST("/api/v1/users")
     suspend fun signUp(
         @Body body: SignUpRequestDto,
     ): BaseResponse<MemberResponseDto>
