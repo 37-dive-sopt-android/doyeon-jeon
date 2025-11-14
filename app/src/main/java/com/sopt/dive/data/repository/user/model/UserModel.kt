@@ -22,9 +22,9 @@ fun MemberResponseDto.toModel(): UserModel =
 
 fun LocalUserModel.toModel(): UserModel =
     UserModel(
-        id = this.id,
-        nickname = this.nickname,
-        email = this.email,
-        age = this.age,
-        status = this.status
+        id = this.id ?: "",
+        nickname = this.nickname ?: "",
+        email = this.email ?: "",
+        age = this.age ?: 0,
+        status = this.status ?: ""
     )
