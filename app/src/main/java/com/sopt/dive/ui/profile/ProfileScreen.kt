@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
-import com.sopt.dive.data.mock.myProfile
+import com.sopt.dive.data.mock.ProfileData
 import com.sopt.dive.data.repository.user.model.UserModel
 import com.sopt.dive.ui.component.InfoBox
 import com.sopt.dive.ui.component.ProfileCard
@@ -64,7 +64,7 @@ fun ProfileScreen(
         ),
     ) {
         ProfileCard(
-            profile = myProfile
+            profile = ProfileData.myProfile
         )
         Spacer(Modifier.height(40.dp))
         Column(
