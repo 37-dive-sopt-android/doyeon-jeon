@@ -100,43 +100,11 @@ class RegisterViewModel(
         if (!_uiState.value.isRegisterButtonEnabled) return
 
         viewModelScope.launch {
-            // 아이디가 유효하지 않은 경우
-            if (!isIdValid()) {
-                _sideEffect.emit(
-                    ShowToast(
-                        R.string.register_id_fail_message
-                    )
-                )
+            getRegisterValidErrorEffect()?.let { effect ->
+                _sideEffect.emit(effect)
                 return@launch
             }
-            // 비밀번호가 유효하지 않은 경우
-            if (!isPwValid()) {
-                _sideEffect.emit(
-                    ShowToast(
-                        R.string.register_pw_fail_message
-                    )
-                )
-                return@launch
-            }
-            // 이메일이 유효하지 않은 경우
-            if (!isEmailValid()) {
-                _sideEffect.emit(
-                    ShowToast(
-                        R.string.register_email_fail_message
-                    )
-                )
-                return@launch
-            }
-            // 나이가 유효하지 않은 경우
-            if (!isAgeValid()) {
-                _sideEffect.emit(
-                    ShowToast(
-                        R.string.register_age_fail_message
-                    )
-                )
-                return@launch
-            }
-            // 위 케이스 모두 통과했다면 > 회원가입
+
             userRepository.signUp(
                 id = _uiState.value.id,
                 password = _uiState.value.pw,
@@ -162,6 +130,27 @@ class RegisterViewModel(
                 _sideEffect.emit(errorEffect)
             }
         }
+    }
+
+    private fun getRegisterValidErrorEffect(
+    ): RegisterSideEffect? = when {
+        !isIdValid() -> ShowToast(
+            R.string.register_id_fail_message
+        )
+
+        !isPwValid() -> ShowToast(
+            R.string.register_pw_fail_message
+        )
+
+        !isEmailValid() -> ShowToast(
+            R.string.register_email_fail_message
+        )
+
+        !isAgeValid() -> ShowToast(
+            R.string.register_age_fail_message
+        )
+
+        else -> null
     }
 
     private fun getRegisterHttpExceptionEffet(
