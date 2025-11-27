@@ -47,6 +47,11 @@ fun RegisterRoute(
                     context.getString(it.message),
                     Toast.LENGTH_SHORT
                 ).show()
+                is RegisterSideEffect.ShowStringToast -> Toast.makeText(
+                    context,
+                    it.message,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
