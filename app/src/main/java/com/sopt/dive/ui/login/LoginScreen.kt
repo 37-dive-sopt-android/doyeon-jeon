@@ -31,9 +31,7 @@ fun LoginRoute(
     navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = viewModel(
-        factory = LoginViewModel.Factory
-    ),
+    viewModel: LoginViewModel = viewModel(),
 ) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

@@ -1,7 +1,7 @@
 package com.sopt.dive.data.repository.auth
 
 import com.sopt.dive.core.manager.AuthManager
-import com.sopt.dive.core.util.suspendRunCatching
+import com.sopt.dive.core.util.apiRunCatching
 import com.sopt.dive.data.datasource.local.DataStoreDataSource
 import com.sopt.dive.data.datasource.remote.auth.AuthDataSource
 import com.sopt.dive.data.service.dto.request.LoginRequestDto
@@ -15,7 +15,7 @@ class AuthRepositoryImpl(
         id: String,
         password: String,
     ): Result<Int> {
-        val result = suspendRunCatching {
+        val result = apiRunCatching {
             authDataSource.login(
                 body = LoginRequestDto(
                     username = id,

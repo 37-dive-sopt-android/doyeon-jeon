@@ -29,9 +29,7 @@ import com.sopt.dive.ui.component.ScreenTitle
 fun RegisterRoute(
     popToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: RegisterViewModel = viewModel(
-        factory = RegisterViewModel.Factory
-    ),
+    viewModel: RegisterViewModel = viewModel(),
 ) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

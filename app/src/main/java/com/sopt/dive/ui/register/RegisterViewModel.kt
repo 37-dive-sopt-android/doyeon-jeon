@@ -2,19 +2,12 @@ package com.sopt.dive.ui.register
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.core.util.getServerError
-import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
-import com.sopt.dive.data.datasource.local.dataStore
-import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
-import com.sopt.dive.data.repository.user.UserRepositoryImpl
 import com.sopt.dive.ui.register.RegisterSideEffect.PopToLogin
 import com.sopt.dive.ui.register.RegisterSideEffect.ShowStringToast
 import com.sopt.dive.ui.register.RegisterSideEffect.ShowToast
@@ -26,10 +19,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-@Suppress("UNCHECKED_CAST")
-class RegisterViewModel(
-    private val userRepository: UserRepository,
-) : ViewModel() {
+class RegisterViewModel() : ViewModel() {
+    private val userRepository: UserRepository = ServicePool.userRepository
+
     private var _uiState = MutableStateFlow(RegisterUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -160,29 +152,6 @@ class RegisterViewModel(
         else -> when (errorData.code) {
             "COMMON-409" -> ShowToast(R.string.register_duplicate_id_error_message)
             else -> ShowStringToast(errorData.message)
-        }
-    }
-
-    // 수동 DI
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras,
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                val dataStoreDataSource = DataStoreDataSourceImpl(
-                    application.dataStore
-                )
-                val userDataSource = UserDataSourceImpl(
-                    userService = ServicePool.userService
-                )
-                val userRepository = UserRepositoryImpl(
-                    userDataSource = userDataSource,
-                    dataStoreDataSource = dataStoreDataSource,
-                )
-                return RegisterViewModel(userRepository) as T
-            }
         }
     }
 }

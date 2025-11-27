@@ -25,9 +25,7 @@ import com.sopt.dive.ui.component.ProfileCard
 fun ProfileRoute(
     navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = viewModel(
-        factory = ProfileViewModel.Factory
-    ),
+    viewModel: ProfileViewModel = viewModel(),
 ) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

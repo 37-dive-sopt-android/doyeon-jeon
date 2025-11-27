@@ -6,7 +6,7 @@ import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 import kotlin.coroutines.cancellation.CancellationException
 
-suspend fun <R> suspendRunCatching(block: suspend () -> R): Result<R> {
+suspend fun <R> apiRunCatching(block: suspend () -> R): Result<R> {
     return try {
         Result.success(block())
     } catch (h: HttpException) {

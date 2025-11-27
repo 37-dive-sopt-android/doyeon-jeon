@@ -31,13 +31,3 @@ object ApiFactory {
 
     inline fun <reified T> create(): T = retrofit.create(T::class.java)
 }
-
-object ServicePool {
-    val authService: AuthService by lazy {
-        ApiFactory.create<AuthService>()
-    }
-
-    val userService: UserService by lazy {
-        ApiFactory.create<UserService>()
-    }
-}
