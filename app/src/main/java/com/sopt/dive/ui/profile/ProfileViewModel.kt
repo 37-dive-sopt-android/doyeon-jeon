@@ -7,18 +7,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
+import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
 import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
-import kotlinx.coroutines.TimeoutCancellationException
+import com.sopt.dive.ui.profile.ProfileSideEffect.ShowToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 @Suppress("UNCHECKED_CAST")
 class ProfileViewModel(
@@ -35,25 +37,17 @@ class ProfileViewModel(
             userRepository.getMyInfo()
                 .onSuccess { result ->
                     _uiState.update { currentState ->
-                        _uiState.value.copy(
+                        currentState.copy(
                             myInfo = result
                         )
                     }
                 }
                 .onFailure { e ->
-                    when (e) {
-                        is TimeoutCancellationException -> _sideEffect.emit(
-                            ProfileSideEffect.ShowToast(
-                                message = R.string.timeout_error_message
-                            )
-                        )
-
-                        else -> _sideEffect.emit(
-                            ProfileSideEffect.ShowToast(
-                                message = R.string.unknown_error_message
-                            )
-                        )
+                    val errorEffect = when (e) {
+                        is HttpException -> ShowToast(R.string.unknown_error_message)
+                        else -> ShowToast(getNonHttpExceptionMessage(e))
                     }
+                    _sideEffect.emit(errorEffect)
                 }
         }
     }

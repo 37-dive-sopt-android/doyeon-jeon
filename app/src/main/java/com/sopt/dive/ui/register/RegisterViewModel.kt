@@ -8,13 +8,16 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
 import com.sopt.dive.core.network.ServicePool
-import com.sopt.dive.core.util.getErrorData
+import com.sopt.dive.core.util.getNonHttpExceptionMessage
+import com.sopt.dive.core.util.getServerError
 import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
 import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
-import kotlinx.coroutines.TimeoutCancellationException
+import com.sopt.dive.ui.register.RegisterSideEffect.PopToLogin
+import com.sopt.dive.ui.register.RegisterSideEffect.ShowStringToast
+import com.sopt.dive.ui.register.RegisterSideEffect.ShowToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -100,7 +103,7 @@ class RegisterViewModel(
             // 아이디가 유효하지 않은 경우
             if (!isIdValid()) {
                 _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
+                    ShowToast(
                         R.string.register_id_fail_message
                     )
                 )
@@ -109,7 +112,7 @@ class RegisterViewModel(
             // 비밀번호가 유효하지 않은 경우
             if (!isPwValid()) {
                 _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
+                    ShowToast(
                         R.string.register_pw_fail_message
                     )
                 )
@@ -118,7 +121,7 @@ class RegisterViewModel(
             // 이메일이 유효하지 않은 경우
             if (!isEmailValid()) {
                 _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
+                    ShowToast(
                         R.string.register_email_fail_message
                     )
                 )
@@ -127,7 +130,7 @@ class RegisterViewModel(
             // 나이가 유효하지 않은 경우
             if (!isAgeValid()) {
                 _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
+                    ShowToast(
                         R.string.register_age_fail_message
                     )
                 )
@@ -143,53 +146,31 @@ class RegisterViewModel(
             ).onSuccess {
                 // 로그인 페이지로 돌아가기
                 _sideEffect.emit(
-                    RegisterSideEffect.PopToLogin
+                    PopToLogin
                 )
                 // 회원가입 완료 토스트
                 _sideEffect.emit(
-                    RegisterSideEffect.ShowToast(
+                    ShowToast(
                         R.string.register_success_message
                     )
                 )
             }.onFailure { e ->
-                when (e) {
-                    is HttpException -> {
-                        val errorData = getErrorData(e)
-                        when {
-                            errorData == null -> _sideEffect.emit(
-                                RegisterSideEffect.ShowToast(
-                                    message = R.string.unknown_error_message
-                                )
-                            )
-
-                            errorData.data.code == "COMMON-409" -> _sideEffect.emit(
-                                RegisterSideEffect.ShowToast(
-                                    message = R.string.register_duplicate_id_error_message
-                                )
-                            )
-
-                            else -> _sideEffect.emit(
-                                RegisterSideEffect.ShowToast(
-                                    message = R.string.unknown_error_message
-                                )
-                            )
-                        }
-                    }
-
-                    is TimeoutCancellationException -> _sideEffect.emit(
-                        RegisterSideEffect.ShowToast(
-                            message = R.string.timeout_error_message
-                        )
-                    )
-
-                    else -> _sideEffect.emit(
-                        RegisterSideEffect.ShowToast(
-                            message = R.string.unknown_error_message
-                        )
-                    )
-
+                val errorEffect = when (e) {
+                    is HttpException -> getRegisterHttpExceptionEffet(e)
+                    else -> ShowToast(getNonHttpExceptionMessage(e))
                 }
+                _sideEffect.emit(errorEffect)
             }
+        }
+    }
+
+    private fun getRegisterHttpExceptionEffet(
+        e: HttpException,
+    ): RegisterSideEffect = when (val errorData = getServerError(e)) {
+        null -> ShowToast(R.string.unknown_error_message)
+        else -> when (errorData.code) {
+            "COMMON-409" -> ShowToast(R.string.register_duplicate_id_error_message)
+            else -> ShowStringToast(errorData.message)
         }
     }
 
