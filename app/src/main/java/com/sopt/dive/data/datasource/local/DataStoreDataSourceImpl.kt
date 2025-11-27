@@ -68,4 +68,14 @@ class DataStoreDataSourceImpl(
             user[DataStoreKeys.IS_LOGGED_IN] = status
         }
     }
+
+    override suspend fun getProfileImages(): List<String>? = dataStore.data.map { preferences ->
+        preferences[DataStoreKeys.PROFILE_IMAGES]?.toList()
+    }.firstOrNull()
+
+    override suspend fun setProfileImages(images: List<String>) {
+        dataStore.edit { user ->
+            user[DataStoreKeys.PROFILE_IMAGES] = images.toSet()
+        }
+    }
 }

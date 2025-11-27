@@ -9,4 +9,6 @@ interface DataStoreDataSource {
     suspend fun setAccountInfo(id: String, pw: String)
     suspend fun setUserInfo(id: String, nickname: String, email: String, age: Int, status: String)
     suspend fun setLoginStatus(status: Boolean)
+    suspend fun getProfileImages(): List<String>?
+    suspend fun setProfileImages(images: List<String>)
 }
