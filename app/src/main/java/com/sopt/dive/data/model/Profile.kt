@@ -1,9 +1,7 @@
 package com.sopt.dive.data.model
 
-import androidx.annotation.DrawableRes
-
 data class Profile(
-    @DrawableRes val image: Int,
+    val image: String = "https://upload3.inven.co.kr/upload/2021/02/21/bbs/i15728541617.jpg",
     val name: String,
     val bio: String? = null,
     val isBirthday: Boolean = false,
