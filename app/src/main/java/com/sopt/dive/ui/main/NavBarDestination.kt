@@ -1,4 +1,4 @@
-package com.sopt.dive.ui.navigation
+package com.sopt.dive.ui.main
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
