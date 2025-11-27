@@ -1,11 +1,12 @@
 package com.sopt.dive.data.datasource.local
 
-import com.sopt.dive.data.model.AccountInfo
-import com.sopt.dive.data.model.UserPrefs
+import com.sopt.dive.data.datasource.local.model.LocalAccountModel
+import com.sopt.dive.data.datasource.local.model.LocalUserModel
 
 interface DataStoreDataSource {
-    suspend fun getUserInfo(): UserPrefs?
-    suspend fun getAccountInfo(): AccountInfo?
-    suspend fun setUserInfo(id: String, pw: String, nickname: String, mbti: String)
+    suspend fun getUserInfo(): LocalUserModel?
+    suspend fun getAccountInfo(): LocalAccountModel?
+    suspend fun setAccountInfo(id: String, pw: String)
+    suspend fun setUserInfo(id: String, nickname: String, email: String, age: Int, status: String)
     suspend fun setLoginStatus(status: Boolean)
 }

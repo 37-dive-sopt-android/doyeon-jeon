@@ -1,4 +1,4 @@
-package com.sopt.dive.ui.navigation
+package com.sopt.dive.ui.main
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -73,6 +73,11 @@ fun NavGraphBuilder.diveNavGraph(
     }
     composable<Profile> {
         ProfileRoute(
+            navigateToLogin = {
+                navController.navigate(Login) {
+                    popUpTo(Profile) { inclusive = true }
+                }
+            },
             modifier = Modifier.padding(innerPadding)
         )
     }

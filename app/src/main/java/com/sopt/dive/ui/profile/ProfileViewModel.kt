@@ -1,53 +1,49 @@
 package com.sopt.dive.ui.profile
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.sopt.dive.data.datasource.local.DataStoreDataSource
-import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
-import com.sopt.dive.data.datasource.local.dataStore
+import com.sopt.dive.R
+import com.sopt.dive.core.exception.UnauthorizedException
+import com.sopt.dive.core.network.ServicePool
+import com.sopt.dive.core.util.getNonHttpExceptionMessage
+import com.sopt.dive.data.repository.user.UserRepository
+import com.sopt.dive.ui.profile.ProfileSideEffect.NavigateToLogin
+import com.sopt.dive.ui.profile.ProfileSideEffect.ShowToast
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
-@Suppress("UNCHECKED_CAST")
-class ProfileViewModel(
-    private val dataStoreDataSource: DataStoreDataSource,
-) : ViewModel() {
+class ProfileViewModel() : ViewModel() {
+    private val userRepository: UserRepository = ServicePool.userRepository
+
     private var _uiState = MutableStateFlow(ProfileUiState())
     val uiState = _uiState.asStateFlow()
 
-    init {
-        getUserPrefs()
-    }
+    private val _sideEffect = MutableSharedFlow<ProfileSideEffect>()
+    val sideEffect = _sideEffect.asSharedFlow()
 
-    fun getUserPrefs() {
+    fun getMyInfo() {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    userPrefs = dataStoreDataSource.getUserInfo()
-                )
-            }
-        }
-    }
-
-    // 수동 DI
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras,
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                val dataStoreDataSource = DataStoreDataSourceImpl(
-                    application.dataStore
-                )
-
-                return ProfileViewModel(dataStoreDataSource) as T
-            }
+            userRepository.getMyInfo()
+                .onSuccess { result ->
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            myInfo = result
+                        )
+                    }
+                }
+                .onFailure { e ->
+                    val errorEffect = when (e) {
+                        is UnauthorizedException -> NavigateToLogin
+                        is HttpException -> ShowToast(R.string.unknown_error_message)
+                        else -> ShowToast(getNonHttpExceptionMessage(e))
+                    }
+                    _sideEffect.emit(errorEffect)
+                }
         }
     }
 }

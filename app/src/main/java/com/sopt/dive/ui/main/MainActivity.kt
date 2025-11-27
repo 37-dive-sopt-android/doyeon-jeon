@@ -1,4 +1,4 @@
-package com.sopt.dive.ui
+package com.sopt.dive.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,8 +20,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sopt.dive.ui.component.BottomNavigationBar
 import com.sopt.dive.ui.component.BottomNavigationBarItem
-import com.sopt.dive.ui.navigation.NavBarDestination
-import com.sopt.dive.ui.navigation.diveNavGraph
 import com.sopt.dive.ui.splash.Splash
 import com.sopt.dive.ui.theme.Background
 import com.sopt.dive.ui.theme.DiveTheme
@@ -44,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
-                    modifier = Modifier.Companion.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         if (showNavBar) {
                             DiveBottomNavigationBar(
@@ -63,7 +61,7 @@ class MainActivity : ComponentActivity() {
                                         restoreState = true
                                     }
                                 },
-                                modifier = Modifier.Companion
+                                modifier = Modifier
                                     .padding(horizontal = 20.dp, vertical = 0.dp)
                                     .navigationBarsPadding()
                             )
@@ -71,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(
-                        modifier = Modifier.Companion
+                        modifier = Modifier
                             .fillMaxSize()
                             .background(Background)
                     ) {
@@ -108,7 +106,7 @@ private fun DiveBottomNavigationBar(
                 onClick = { onNavigate(destination.route) },
                 icon = destination.icon,
                 label = destination.label,
-                modifier = Modifier.Companion.weight(1f),
+                modifier = Modifier.weight(1f),
                 selectedColor = destination.selectedColor,
                 unselectedColor = destination.unselectedColor
             )

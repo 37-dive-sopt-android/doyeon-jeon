@@ -17,9 +17,7 @@ fun SplashRoute(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SplashViewModel = viewModel(
-        factory = SplashViewModel.Factory
-    ),
+    viewModel: SplashViewModel = viewModel(),
 ) {
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
