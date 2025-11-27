@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.sopt.dive.R
+import com.sopt.dive.core.exception.UnauthorizedException
 import com.sopt.dive.core.network.ServicePool
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
@@ -14,6 +15,7 @@ import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
 import com.sopt.dive.ui.profile.ProfileSideEffect.ShowToast
+import com.sopt.dive.ui.profile.ProfileSideEffect.NavigateToLogin
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -44,6 +46,7 @@ class ProfileViewModel(
                 }
                 .onFailure { e ->
                     val errorEffect = when (e) {
+                        is UnauthorizedException -> NavigateToLogin
                         is HttpException -> ShowToast(R.string.unknown_error_message)
                         else -> ShowToast(getNonHttpExceptionMessage(e))
                     }

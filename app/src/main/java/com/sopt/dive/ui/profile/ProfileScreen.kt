@@ -23,6 +23,7 @@ import com.sopt.dive.ui.component.ProfileCard
 
 @Composable
 fun ProfileRoute(
+    navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = viewModel(
         factory = ProfileViewModel.Factory
@@ -41,6 +42,8 @@ fun ProfileRoute(
                     context.getString(it.message),
                     Toast.LENGTH_SHORT
                 ).show()
+
+                is ProfileSideEffect.NavigateToLogin -> navigateToLogin.invoke()
             }
         }
     }

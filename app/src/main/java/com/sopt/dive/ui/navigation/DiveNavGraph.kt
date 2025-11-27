@@ -73,6 +73,11 @@ fun NavGraphBuilder.diveNavGraph(
     }
     composable<Profile> {
         ProfileRoute(
+            navigateToLogin = {
+                navController.navigate(Login) {
+                    popUpTo(Profile) { inclusive = true }
+                }
+            },
             modifier = Modifier.padding(innerPadding)
         )
     }
