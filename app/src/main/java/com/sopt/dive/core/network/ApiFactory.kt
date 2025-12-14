@@ -2,8 +2,6 @@ package com.sopt.dive.core.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.dive.BuildConfig
-import com.sopt.dive.data.service.AuthService
-import com.sopt.dive.data.service.UserService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -12,6 +10,7 @@ import retrofit2.Retrofit
 
 object ApiFactory {
     private const val BASE_URL: String = BuildConfig.BASE_URL
+    private const val REQRES_URL: String = BuildConfig.REQRES_URL
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -29,5 +28,14 @@ object ApiFactory {
             .build()
     }
 
+    val reqresRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(REQRES_URL)
+            .client(client)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
+
     inline fun <reified T> create(): T = retrofit.create(T::class.java)
+    inline fun <reified T> createReqres(): T = reqresRetrofit.create(T::class.java)
 }

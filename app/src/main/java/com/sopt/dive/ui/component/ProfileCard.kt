@@ -1,6 +1,5 @@
 package com.sopt.dive.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,13 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.dive.R
+import coil3.compose.AsyncImage
 import com.sopt.dive.data.model.Profile
-import com.sopt.dive.data.model.ProfileMusic
 import com.sopt.dive.ui.theme.Black1
 import com.sopt.dive.ui.theme.Black2
 import com.sopt.dive.ui.theme.Red
@@ -44,8 +40,8 @@ fun ProfileCard(
                 modifier = Modifier
                     .size(40.dp)
             ) {
-                Image(
-                    painter = painterResource(id = profile.image),
+                AsyncImage(
+                    model = profile.image,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -103,94 +99,94 @@ fun ProfileCard(
     }
 }
 
-@Preview
-@Composable
-private fun ProfileCardPreviewDefault() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도",
-            bio = "도도도도도도돋도",
-        ),
-    )
-}
-
-@Preview
-@Composable
-private fun ProfileCardPreviewBirthday() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도",
-            isBirthday = true
-        ),
-    )
-}
-
-@Preview
-@Composable
-private fun ProfileCardUpdated() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도",
-            bio = "도도도도도도돋도",
-            isUpdated = true
-        ),
-    )
-}
-
-@Preview
-@Composable
-private fun ProfileCardMusic() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도",
-            bio = "도도도도도도돋도",
-            music = ProfileMusic(
-                id = 1,
-                title = "LINK IT ALL",
-                singer = "SPYAIR"
-            )
-        ),
-    )
-}
-
-@Preview
-@Composable
-private fun ProfileCardAll() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도",
-            bio = "도도도도도도돋도",
-            isBirthday = true,
-            isUpdated = true,
-            music = ProfileMusic(
-                id = 1,
-                title = "LINK IT ALL",
-                singer = "SPYAIR"
-            )
-        ),
-    )
-}
-
-@Preview
-@Composable
-private fun ProfileCardHeavy() {
-    ProfileCard(
-        profile = Profile(
-            image = R.drawable.chopper,
-            name = "도도도도도도도도도도도도도도도도",
-            bio = "도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도",
-            isBirthday = true,
-            isUpdated = true,
-            music = ProfileMusic(
-                id = 1,
-                title = "LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL",
-                singer = "SPYAIR"
-            )
-        ),
-    )
-}
+//@Preview
+//@Composable
+//private fun ProfileCardPreviewDefault() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도",
+//            bio = "도도도도도도돋도",
+//        ),
+//    )
+//}
+//
+//@Preview
+//@Composable
+//private fun ProfileCardPreviewBirthday() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도",
+//            isBirthday = true
+//        ),
+//    )
+//}
+//
+//@Preview
+//@Composable
+//private fun ProfileCardUpdated() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도",
+//            bio = "도도도도도도돋도",
+//            isUpdated = true
+//        ),
+//    )
+//}
+//
+//@Preview
+//@Composable
+//private fun ProfileCardMusic() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도",
+//            bio = "도도도도도도돋도",
+//            music = ProfileMusic(
+//                id = 1,
+//                title = "LINK IT ALL",
+//                singer = "SPYAIR"
+//            )
+//        ),
+//    )
+//}
+//
+//@Preview
+//@Composable
+//private fun ProfileCardAll() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도",
+//            bio = "도도도도도도돋도",
+//            isBirthday = true,
+//            isUpdated = true,
+//            music = ProfileMusic(
+//                id = 1,
+//                title = "LINK IT ALL",
+//                singer = "SPYAIR"
+//            )
+//        ),
+//    )
+//}
+//
+//@Preview
+//@Composable
+//private fun ProfileCardHeavy() {
+//    ProfileCard(
+//        profile = Profile(
+//            image = R.drawable.chopper,
+//            name = "도도도도도도도도도도도도도도도도",
+//            bio = "도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도도도도도도도돋도",
+//            isBirthday = true,
+//            isUpdated = true,
+//            music = ProfileMusic(
+//                id = 1,
+//                title = "LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL LINK IT ALL",
+//                singer = "SPYAIR"
+//            )
+//        ),
+//    )
+//}

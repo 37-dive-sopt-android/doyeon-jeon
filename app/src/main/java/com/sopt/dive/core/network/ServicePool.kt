@@ -6,13 +6,18 @@ import com.sopt.dive.data.datasource.local.DataStoreDataSourceImpl
 import com.sopt.dive.data.datasource.local.dataStore
 import com.sopt.dive.data.datasource.remote.auth.AuthDataSource
 import com.sopt.dive.data.datasource.remote.auth.AuthDataSourceImpl
+import com.sopt.dive.data.datasource.remote.reqres.ReqresDataSource
+import com.sopt.dive.data.datasource.remote.reqres.ReqresDataSourceImpl
 import com.sopt.dive.data.datasource.remote.user.UserDataSource
 import com.sopt.dive.data.datasource.remote.user.UserDataSourceImpl
 import com.sopt.dive.data.repository.auth.AuthRepository
 import com.sopt.dive.data.repository.auth.AuthRepositoryImpl
+import com.sopt.dive.data.repository.reqres.ReqresRepository
+import com.sopt.dive.data.repository.reqres.ReqresRepositoryImpl
 import com.sopt.dive.data.repository.user.UserRepository
 import com.sopt.dive.data.repository.user.UserRepositoryImpl
 import com.sopt.dive.data.service.AuthService
+import com.sopt.dive.data.service.ReqresService
 import com.sopt.dive.data.service.UserService
 
 object ServicePool {
@@ -30,6 +35,10 @@ object ServicePool {
         ApiFactory.create<UserService>()
     }
 
+    private val reqresService: ReqresService by lazy {
+        ApiFactory.createReqres<ReqresService>()
+    }
+
     private val authDataSource: AuthDataSource by lazy {
         AuthDataSourceImpl(authService)
     }
@@ -40,6 +49,10 @@ object ServicePool {
 
     private val dataStoreDataSource: DataStoreDataSource by lazy {
         DataStoreDataSourceImpl(applicationContext.dataStore)
+    }
+
+    private val reqresDataSource: ReqresDataSource by lazy {
+        ReqresDataSourceImpl(reqresService)
     }
 
     val authRepository: AuthRepository by lazy {
@@ -53,6 +66,13 @@ object ServicePool {
         UserRepositoryImpl(
             dataStoreDataSource = dataStoreDataSource,
             userDataSource = userDataSource
+        )
+    }
+
+    val reqresRepository: ReqresRepository by lazy {
+        ReqresRepositoryImpl(
+            dataStoreDataSource = dataStoreDataSource,
+            reqresDataSource = reqresDataSource
         )
     }
 }
