@@ -6,7 +6,7 @@ import com.sopt.dive.R
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.core.util.getServerError
 import com.sopt.dive.di.feature.AuthModule
-import com.sopt.dive.domain.repository.AuthRepository
+import com.sopt.dive.data.repository.AuthRepository
 import com.sopt.dive.presentation.login.LoginSideEffect.NavigateToHome
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowStringToast
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowToast

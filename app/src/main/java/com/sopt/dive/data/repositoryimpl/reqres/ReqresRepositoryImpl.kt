@@ -3,7 +3,7 @@ package com.sopt.dive.data.repositoryimpl.reqres
 import com.sopt.dive.core.util.apiRunCatching
 import com.sopt.dive.data.local.datasource.DataStoreDataSource
 import com.sopt.dive.data.remote.datasource.reqres.ReqresDataSource
-import com.sopt.dive.domain.repository.ReqresRepository
+import com.sopt.dive.data.repository.ReqresRepository
 
 class ReqresRepositoryImpl(
     private val dataStoreDataSource: DataStoreDataSource,

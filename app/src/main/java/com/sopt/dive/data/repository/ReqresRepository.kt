@@ -1,4 +1,4 @@
-package com.sopt.dive.domain.repository
+package com.sopt.dive.data.repository
 
 interface ReqresRepository {
 

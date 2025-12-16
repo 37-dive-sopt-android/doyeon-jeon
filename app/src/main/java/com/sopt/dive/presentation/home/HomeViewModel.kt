@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.data.mock.ProfileData
 import com.sopt.dive.di.feature.ReqresModule
-import com.sopt.dive.domain.repository.ReqresRepository
+import com.sopt.dive.data.repository.ReqresRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

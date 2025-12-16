@@ -7,7 +7,7 @@ import com.sopt.dive.R
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.core.util.getServerError
 import com.sopt.dive.di.feature.UserModule
-import com.sopt.dive.domain.repository.UserRepository
+import com.sopt.dive.data.repository.UserRepository
 import com.sopt.dive.presentation.register.RegisterSideEffect.PopToLogin
 import com.sopt.dive.presentation.register.RegisterSideEffect.ShowStringToast
 import com.sopt.dive.presentation.register.RegisterSideEffect.ShowToast

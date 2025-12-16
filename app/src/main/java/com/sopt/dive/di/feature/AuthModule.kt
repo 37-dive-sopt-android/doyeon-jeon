@@ -6,7 +6,7 @@ import com.sopt.dive.data.remote.datasourceimpl.auth.AuthDataSourceImpl
 import com.sopt.dive.data.remote.service.AuthService
 import com.sopt.dive.data.repositoryimpl.auth.AuthRepositoryImpl
 import com.sopt.dive.di.core.DataStoreModule
-import com.sopt.dive.domain.repository.AuthRepository
+import com.sopt.dive.data.repository.AuthRepository
 
 object AuthModule {
     private val authService: AuthService by lazy {

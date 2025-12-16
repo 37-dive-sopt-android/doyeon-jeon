@@ -3,7 +3,7 @@ package com.sopt.dive.presentation.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.di.feature.AuthModule
-import com.sopt.dive.domain.repository.AuthRepository
+import com.sopt.dive.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

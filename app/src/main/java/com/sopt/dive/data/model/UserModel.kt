@@ -1,4 +1,4 @@
-package com.sopt.dive.domain.model
+package com.sopt.dive.data.model
 
 import com.sopt.dive.data.local.model.LocalUserModel
 import com.sopt.dive.data.remote.service.dto.response.MemberResponseDto

@@ -5,7 +5,7 @@ import com.sopt.dive.core.util.apiRunCatching
 import com.sopt.dive.data.local.datasource.DataStoreDataSource
 import com.sopt.dive.data.remote.datasource.auth.AuthDataSource
 import com.sopt.dive.data.remote.service.dto.request.LoginRequestDto
-import com.sopt.dive.domain.repository.AuthRepository
+import com.sopt.dive.data.repository.AuthRepository
 
 class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource,

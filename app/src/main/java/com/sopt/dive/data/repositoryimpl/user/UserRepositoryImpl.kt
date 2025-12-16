@@ -6,9 +6,9 @@ import com.sopt.dive.core.util.apiRunCatching
 import com.sopt.dive.data.local.datasource.DataStoreDataSource
 import com.sopt.dive.data.remote.datasource.user.UserDataSource
 import com.sopt.dive.data.remote.service.dto.request.SignUpRequestDto
-import com.sopt.dive.domain.model.UserModel
-import com.sopt.dive.domain.model.toModel
-import com.sopt.dive.domain.repository.UserRepository
+import com.sopt.dive.data.model.UserModel
+import com.sopt.dive.data.model.toModel
+import com.sopt.dive.data.repository.UserRepository
 
 class UserRepositoryImpl(
     private val dataStoreDataSource: DataStoreDataSource,

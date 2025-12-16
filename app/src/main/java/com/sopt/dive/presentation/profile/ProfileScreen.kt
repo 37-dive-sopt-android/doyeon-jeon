@@ -17,7 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
 import com.sopt.dive.data.mock.ProfileData
-import com.sopt.dive.domain.model.UserModel
+import com.sopt.dive.data.model.UserModel
 import com.sopt.dive.presentation.component.InfoBox
 import com.sopt.dive.presentation.component.ProfileCard
 

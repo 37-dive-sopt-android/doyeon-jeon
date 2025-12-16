@@ -6,7 +6,7 @@ import com.sopt.dive.R
 import com.sopt.dive.core.exception.UnauthorizedException
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.di.feature.UserModule
-import com.sopt.dive.domain.repository.UserRepository
+import com.sopt.dive.data.repository.UserRepository
 import com.sopt.dive.presentation.profile.ProfileSideEffect.NavigateToLogin
 import com.sopt.dive.presentation.profile.ProfileSideEffect.ShowToast
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -6,7 +6,7 @@ import com.sopt.dive.data.remote.datasourceimpl.user.UserDataSourceImpl
 import com.sopt.dive.data.remote.service.UserService
 import com.sopt.dive.data.repositoryimpl.user.UserRepositoryImpl
 import com.sopt.dive.di.core.DataStoreModule
-import com.sopt.dive.domain.repository.UserRepository
+import com.sopt.dive.data.repository.UserRepository
 
 object UserModule {
     private val userService: UserService by lazy {

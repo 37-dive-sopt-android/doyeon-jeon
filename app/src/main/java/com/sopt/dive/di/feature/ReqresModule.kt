@@ -6,7 +6,7 @@ import com.sopt.dive.data.remote.datasourceimpl.reqres.ReqresDataSourceImpl
 import com.sopt.dive.data.remote.service.ReqresService
 import com.sopt.dive.data.repositoryimpl.reqres.ReqresRepositoryImpl
 import com.sopt.dive.di.core.DataStoreModule
-import com.sopt.dive.domain.repository.ReqresRepository
+import com.sopt.dive.data.repository.ReqresRepository
 
 object ReqresModule {
     private val reqresService: ReqresService by lazy {

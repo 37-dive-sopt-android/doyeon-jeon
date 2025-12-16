@@ -1,6 +1,6 @@
-package com.sopt.dive.domain.repository
+package com.sopt.dive.data.repository
 
-import com.sopt.dive.domain.model.UserModel
+import com.sopt.dive.data.model.UserModel
 
 interface UserRepository {
 
