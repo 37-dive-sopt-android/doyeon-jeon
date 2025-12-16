@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
 import com.sopt.dive.core.exception.UnauthorizedException
-import com.sopt.dive.di.ServicePool
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
+import com.sopt.dive.di.feature.UserModule
 import com.sopt.dive.domain.repository.UserRepository
 import com.sopt.dive.presentation.profile.ProfileSideEffect.NavigateToLogin
 import com.sopt.dive.presentation.profile.ProfileSideEffect.ShowToast
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class ProfileViewModel() : ViewModel() {
-    private val userRepository: UserRepository = ServicePool.userRepository
+    private val userRepository: UserRepository = UserModule.userRepository
 
     private var _uiState = MutableStateFlow(ProfileUiState())
     val uiState = _uiState.asStateFlow()

@@ -4,9 +4,9 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
-import com.sopt.dive.di.ServicePool
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.core.util.getServerError
+import com.sopt.dive.di.feature.UserModule
 import com.sopt.dive.domain.repository.UserRepository
 import com.sopt.dive.presentation.register.RegisterSideEffect.PopToLogin
 import com.sopt.dive.presentation.register.RegisterSideEffect.ShowStringToast
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class RegisterViewModel() : ViewModel() {
-    private val userRepository: UserRepository = ServicePool.userRepository
+    private val userRepository: UserRepository = UserModule.userRepository
 
     private var _uiState = MutableStateFlow(RegisterUiState())
     val uiState = _uiState.asStateFlow()

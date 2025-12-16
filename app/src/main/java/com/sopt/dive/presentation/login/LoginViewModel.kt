@@ -3,9 +3,9 @@ package com.sopt.dive.presentation.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
-import com.sopt.dive.di.ServicePool
 import com.sopt.dive.core.util.getNonHttpExceptionMessage
 import com.sopt.dive.core.util.getServerError
+import com.sopt.dive.di.feature.AuthModule
 import com.sopt.dive.domain.repository.AuthRepository
 import com.sopt.dive.presentation.login.LoginSideEffect.NavigateToHome
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowStringToast
@@ -21,7 +21,7 @@ import retrofit2.HttpException
 
 @Suppress("UNCHECKED_CAST")
 class LoginViewModel() : ViewModel() {
-    private val authRepository: AuthRepository = ServicePool.authRepository
+    private val authRepository: AuthRepository = AuthModule.authRepository
 
     private var _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()

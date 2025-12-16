@@ -2,8 +2,8 @@ package com.sopt.dive.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.dive.di.ServicePool
 import com.sopt.dive.data.mock.ProfileData
+import com.sopt.dive.di.feature.ReqresModule
 import com.sopt.dive.domain.repository.ReqresRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private val reqresRepository: ReqresRepository = ServicePool.reqresRepository
+    private val reqresRepository: ReqresRepository = ReqresModule.reqresRepository
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
