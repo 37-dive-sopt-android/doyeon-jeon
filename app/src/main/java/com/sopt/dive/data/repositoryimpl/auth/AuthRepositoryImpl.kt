@@ -2,9 +2,9 @@ package com.sopt.dive.data.repositoryimpl.auth
 
 import com.sopt.dive.core.manager.AuthManager
 import com.sopt.dive.core.util.apiRunCatching
-import com.sopt.dive.data.datasource.local.datasource.DataStoreDataSource
-import com.sopt.dive.data.datasource.remote.datasource.auth.AuthDataSource
-import com.sopt.dive.data.service.dto.request.LoginRequestDto
+import com.sopt.dive.data.local.datasource.DataStoreDataSource
+import com.sopt.dive.data.remote.datasource.auth.AuthDataSource
+import com.sopt.dive.data.remote.service.dto.request.LoginRequestDto
 import com.sopt.dive.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(

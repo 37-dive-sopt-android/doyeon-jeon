@@ -1,7 +1,7 @@
 package com.sopt.dive.domain.model
 
-import com.sopt.dive.data.datasource.local.model.LocalUserModel
-import com.sopt.dive.data.service.dto.response.MemberResponseDto
+import com.sopt.dive.data.local.model.LocalUserModel
+import com.sopt.dive.data.remote.service.dto.response.MemberResponseDto
 
 data class UserModel(
     val id: String,

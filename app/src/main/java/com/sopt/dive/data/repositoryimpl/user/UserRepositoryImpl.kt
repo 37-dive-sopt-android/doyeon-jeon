@@ -3,9 +3,9 @@ package com.sopt.dive.data.repositoryimpl.user
 import com.sopt.dive.core.exception.UnauthorizedException
 import com.sopt.dive.core.manager.AuthManager
 import com.sopt.dive.core.util.apiRunCatching
-import com.sopt.dive.data.datasource.local.datasource.DataStoreDataSource
-import com.sopt.dive.data.datasource.remote.datasource.user.UserDataSource
-import com.sopt.dive.data.service.dto.request.SignUpRequestDto
+import com.sopt.dive.data.local.datasource.DataStoreDataSource
+import com.sopt.dive.data.remote.datasource.user.UserDataSource
+import com.sopt.dive.data.remote.service.dto.request.SignUpRequestDto
 import com.sopt.dive.domain.model.UserModel
 import com.sopt.dive.domain.model.toModel
 import com.sopt.dive.domain.repository.UserRepository

@@ -1,0 +1,17 @@
+package com.sopt.dive.data.remote.datasource.user
+
+import com.sopt.dive.core.model.BaseResponse
+import com.sopt.dive.data.remote.service.dto.request.SignUpRequestDto
+import com.sopt.dive.data.remote.service.dto.response.MemberResponseDto
+
+interface UserDataSource {
+
+    suspend fun getUserInfo(
+        userId: Int,
+    ): BaseResponse<MemberResponseDto>
+
+    suspend fun signUp(
+        body: SignUpRequestDto,
+    ): BaseResponse<MemberResponseDto>
+
+}

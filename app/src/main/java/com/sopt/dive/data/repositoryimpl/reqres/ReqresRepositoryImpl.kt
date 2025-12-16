@@ -1,8 +1,8 @@
 package com.sopt.dive.data.repositoryimpl.reqres
 
 import com.sopt.dive.core.util.apiRunCatching
-import com.sopt.dive.data.datasource.local.datasource.DataStoreDataSource
-import com.sopt.dive.data.datasource.remote.datasource.reqres.ReqresDataSource
+import com.sopt.dive.data.local.datasource.DataStoreDataSource
+import com.sopt.dive.data.remote.datasource.reqres.ReqresDataSource
 import com.sopt.dive.domain.repository.ReqresRepository
 
 class ReqresRepositoryImpl(
