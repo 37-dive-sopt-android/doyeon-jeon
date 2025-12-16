@@ -1,4 +1,4 @@
-package com.sopt.dive.data.datasource.remote.datasource
+package com.sopt.dive.data.datasource.remote.datasource.user
 
 import com.sopt.dive.core.model.BaseResponse
 import com.sopt.dive.data.service.dto.request.SignUpRequestDto

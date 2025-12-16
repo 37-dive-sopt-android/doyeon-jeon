@@ -1,7 +1,7 @@
-package com.sopt.dive.data.datasource.remote.datasourceimpl
+package com.sopt.dive.data.datasource.remote.datasourceimpl.user
 
 import com.sopt.dive.core.model.BaseResponse
-import com.sopt.dive.data.datasource.remote.datasource.UserDataSource
+import com.sopt.dive.data.datasource.remote.datasource.user.UserDataSource
 import com.sopt.dive.data.service.UserService
 import com.sopt.dive.data.service.dto.request.SignUpRequestDto
 import com.sopt.dive.data.service.dto.response.MemberResponseDto

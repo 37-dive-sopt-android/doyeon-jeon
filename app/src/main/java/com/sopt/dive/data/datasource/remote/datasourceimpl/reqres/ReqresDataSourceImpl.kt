@@ -1,6 +1,6 @@
-package com.sopt.dive.data.datasource.remote.datasourceimpl
+package com.sopt.dive.data.datasource.remote.datasourceimpl.reqres
 
-import com.sopt.dive.data.datasource.remote.datasource.ReqresDataSource
+import com.sopt.dive.data.datasource.remote.datasource.reqres.ReqresDataSource
 import com.sopt.dive.data.service.ReqresService
 import com.sopt.dive.data.service.dto.response.ReqresUserResponse
 

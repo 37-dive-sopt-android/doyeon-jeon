@@ -1,4 +1,4 @@
-package com.sopt.dive.data.datasource.remote.datasource
+package com.sopt.dive.data.datasource.remote.datasource.reqres
 
 import com.sopt.dive.data.service.dto.response.ReqresUserResponse
 
