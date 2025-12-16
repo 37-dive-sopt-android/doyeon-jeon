@@ -4,10 +4,10 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
-import com.sopt.dive.core.util.getNonHttpExceptionMessage
-import com.sopt.dive.core.util.getServerError
 import com.sopt.dive.di.feature.UserModule
 import com.sopt.dive.data.repository.UserRepository
+import com.sopt.dive.data.type.AuthError
+import com.sopt.dive.data.type.CommonError
 import com.sopt.dive.presentation.register.RegisterSideEffect.PopToLogin
 import com.sopt.dive.presentation.register.RegisterSideEffect.ShowStringToast
 import com.sopt.dive.presentation.register.RegisterSideEffect.ShowToast
@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 class RegisterViewModel() : ViewModel() {
     private val userRepository: UserRepository = UserModule.userRepository
@@ -116,8 +115,10 @@ class RegisterViewModel() : ViewModel() {
                 )
             }.onFailure { e ->
                 val errorEffect = when (e) {
-                    is HttpException -> getRegisterHttpExceptionEffet(e)
-                    else -> ShowToast(getNonHttpExceptionMessage(e))
+                    is CommonError.Timeout -> ShowToast(R.string.timeout_error_message)
+                    is CommonError.Undefined -> ShowStringToast(e.serverMessage)
+                    is AuthError.IdDuplicated -> ShowToast(R.string.register_duplicate_id_error_message)
+                    else -> ShowToast(R.string.unknown_error_message)
                 }
                 _sideEffect.emit(errorEffect)
             }
@@ -143,15 +144,5 @@ class RegisterViewModel() : ViewModel() {
         )
 
         else -> null
-    }
-
-    private fun getRegisterHttpExceptionEffet(
-        e: HttpException,
-    ): RegisterSideEffect = when (val errorData = getServerError(e)) {
-        null -> ShowToast(R.string.unknown_error_message)
-        else -> when (errorData.code) {
-            "COMMON-409" -> ShowToast(R.string.register_duplicate_id_error_message)
-            else -> ShowStringToast(errorData.message)
-        }
     }
 }

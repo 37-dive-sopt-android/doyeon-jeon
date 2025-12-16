@@ -3,10 +3,10 @@ package com.sopt.dive.presentation.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
-import com.sopt.dive.core.util.getNonHttpExceptionMessage
-import com.sopt.dive.core.util.getServerError
-import com.sopt.dive.di.feature.AuthModule
 import com.sopt.dive.data.repository.AuthRepository
+import com.sopt.dive.data.type.AuthError
+import com.sopt.dive.data.type.CommonError
+import com.sopt.dive.di.feature.AuthModule
 import com.sopt.dive.presentation.login.LoginSideEffect.NavigateToHome
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowStringToast
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowToast
@@ -16,10 +16,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
-
-@Suppress("UNCHECKED_CAST")
 class LoginViewModel() : ViewModel() {
     private val authRepository: AuthRepository = AuthModule.authRepository
 
@@ -65,21 +62,13 @@ class LoginViewModel() : ViewModel() {
                 )
             }.onFailure { e ->
                 val errorEffect = when (e) {
-                    is HttpException -> getLoginHttpExceptionEffect(e)
-                    else -> ShowToast(getNonHttpExceptionMessage(e))
+                    is CommonError.Timeout -> ShowToast(R.string.timeout_error_message)
+                    is CommonError.Undefined -> ShowStringToast(e.serverMessage)
+                    is AuthError.InvalidCredentials -> ShowToast(R.string.login_invalid_fail_message)
+                    else -> ShowToast(R.string.unknown_error_message)
                 }
                 _sideEffect.emit(errorEffect)
             }
-        }
-    }
-
-    private fun getLoginHttpExceptionEffect(
-        e: HttpException,
-    ): LoginSideEffect = when (val errorData = getServerError(e)) {
-        null -> ShowToast(R.string.unknown_error_message)
-        else -> when (errorData.code) {
-            "COMMON-400-VAL", "COMMON-401" -> ShowToast(R.string.login_invalid_fail_message)
-            else -> ShowStringToast(errorData.message)
         }
     }
 }
