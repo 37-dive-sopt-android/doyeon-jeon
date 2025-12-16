@@ -1,7 +1,7 @@
 package com.sopt.dive.data.mock
 
-import com.sopt.dive.data.model.Profile
-import com.sopt.dive.data.model.ProfileMusic
+import com.sopt.dive.data.mock.model.Profile
+import com.sopt.dive.data.mock.model.ProfileMusic
 
 object ProfileData {
     val myProfile: Profile = Profile(
