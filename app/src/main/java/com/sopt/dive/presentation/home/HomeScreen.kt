@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.dive.data.mock.model.Profile
+import com.sopt.dive.data.model.Profile
 import com.sopt.dive.presentation.component.ProfileCard
 import com.sopt.dive.presentation.theme.Background
 import com.sopt.dive.presentation.theme.Black3

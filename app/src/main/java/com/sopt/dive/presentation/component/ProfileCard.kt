@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.sopt.dive.data.mock.model.Profile
+import com.sopt.dive.data.model.Profile
 import com.sopt.dive.presentation.theme.Black1
 import com.sopt.dive.presentation.theme.Black2
 import com.sopt.dive.presentation.theme.Red

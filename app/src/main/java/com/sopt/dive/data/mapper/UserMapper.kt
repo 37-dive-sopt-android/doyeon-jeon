@@ -1,18 +1,11 @@
-package com.sopt.dive.data.model
+package com.sopt.dive.data.mapper
 
 import com.sopt.dive.data.local.model.LocalUserModel
+import com.sopt.dive.data.model.User
 import com.sopt.dive.data.remote.service.dto.response.MemberResponseDto
 
-data class UserModel(
-    val id: String,
-    val nickname: String,
-    val email: String,
-    val age: Int,
-    val status: String,
-)
-
-fun MemberResponseDto.toModel(): UserModel =
-    UserModel(
+fun MemberResponseDto.toModel(): User =
+    User(
         id = this.username,
         nickname = this.name,
         email = this.email,
@@ -20,8 +13,8 @@ fun MemberResponseDto.toModel(): UserModel =
         status = this.status
     )
 
-fun LocalUserModel.toModel(): UserModel =
-    UserModel(
+fun LocalUserModel.toModel(): User =
+    User(
         id = this.id ?: "",
         nickname = this.nickname ?: "",
         email = this.email ?: "",

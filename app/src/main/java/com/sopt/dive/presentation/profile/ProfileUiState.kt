@@ -1,9 +1,9 @@
 package com.sopt.dive.presentation.profile
 
-import com.sopt.dive.data.model.UserModel
+import com.sopt.dive.data.model.User
 
 data class ProfileUiState (
-    val myInfo: UserModel = UserModel(
+    val myInfo: User = User(
         id = "",
         nickname = "",
         email = "",

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
-import com.sopt.dive.data.mock.ProfileData
-import com.sopt.dive.data.model.UserModel
+import com.sopt.dive.data.model.Profile
+import com.sopt.dive.data.model.User
 import com.sopt.dive.presentation.component.InfoBox
 import com.sopt.dive.presentation.component.ProfileCard
 
@@ -54,7 +54,7 @@ fun ProfileRoute(
 
 @Composable
 fun ProfileScreen(
-    myInfo: UserModel,
+    myInfo: User,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -64,7 +64,7 @@ fun ProfileScreen(
         ),
     ) {
         ProfileCard(
-            profile = ProfileData.myProfile
+            profile = Profile.myProfile
         )
         Spacer(Modifier.height(40.dp))
         Column(

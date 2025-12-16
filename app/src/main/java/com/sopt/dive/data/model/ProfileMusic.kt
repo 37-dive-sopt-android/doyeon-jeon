@@ -1,4 +1,4 @@
-package com.sopt.dive.data.mock.model
+package com.sopt.dive.data.model
 
 data class ProfileMusic (
     val id: Int,

@@ -1,6 +1,6 @@
 package com.sopt.dive.presentation.home
 
-import com.sopt.dive.data.mock.model.Profile
+import com.sopt.dive.data.model.Profile
 
 data class HomeUiState (
     val myProfile: Profile? = null,

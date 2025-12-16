@@ -2,7 +2,7 @@ package com.sopt.dive.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.dive.data.mock.ProfileData
+import com.sopt.dive.data.model.Profile
 import com.sopt.dive.di.feature.ReqresModule
 import com.sopt.dive.data.repository.ReqresRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,13 +25,13 @@ class HomeViewModel : ViewModel() {
     fun getMyProfile() {
         _uiState.update {
             it.copy(
-                myProfile = ProfileData.myProfile
+                myProfile = Profile.myProfile
             )
         }
     }
 
     fun getOtherProfiles() {
-        val homeProfiles = ProfileData.homeProfiles
+        val homeProfiles = Profile.homeProfiles
 
         viewModelScope.launch {
             reqresRepository.getUserList()
