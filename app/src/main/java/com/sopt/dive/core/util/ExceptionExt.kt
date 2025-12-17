@@ -10,9 +10,9 @@ val json = Json {
     isLenient = true
 }
 
-fun getServerError(e: HttpException): BaseResponse<ErrorData>? =
+fun HttpException.serverError(): BaseResponse<ErrorData>? =
     try {
-        val errorBodyString = e.response()?.errorBody()?.string() ?: return null
+        val errorBodyString = this.response()?.errorBody()?.string() ?: return null
         json.decodeFromString<BaseResponse<ErrorData>>(errorBodyString)
     } catch (_: Exception) {
         null

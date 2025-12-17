@@ -4,11 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
 import com.sopt.dive.data.repository.AuthRepository
-import com.sopt.dive.data.type.AuthError
-import com.sopt.dive.data.type.CommonError
 import com.sopt.dive.di.feature.AuthModule
 import com.sopt.dive.presentation.login.LoginSideEffect.NavigateToHome
-import com.sopt.dive.presentation.login.LoginSideEffect.ShowStringToast
+import com.sopt.dive.presentation.login.LoginSideEffect.ShowErrorToast
 import com.sopt.dive.presentation.login.LoginSideEffect.ShowToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -61,13 +59,7 @@ class LoginViewModel() : ViewModel() {
                     )
                 )
             }.onFailure { e ->
-                val errorEffect = when (e) {
-                    is CommonError.Timeout -> ShowToast(R.string.timeout_error_message)
-                    is CommonError.Undefined -> ShowStringToast(e.serverMessage)
-                    is AuthError.InvalidCredentials -> ShowToast(R.string.login_invalid_fail_message)
-                    else -> ShowToast(R.string.unknown_error_message)
-                }
-                _sideEffect.emit(errorEffect)
+                _sideEffect.emit(ShowErrorToast(e))
             }
         }
     }

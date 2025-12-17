@@ -2,7 +2,7 @@ package com.sopt.dive.data.repositoryimpl.auth
 
 import com.sopt.dive.core.manager.AuthManager
 import com.sopt.dive.core.util.apiRunCatching
-import com.sopt.dive.core.util.getServerError
+import com.sopt.dive.core.util.serverError
 import com.sopt.dive.data.local.datasource.DataStoreDataSource
 import com.sopt.dive.data.remote.datasource.auth.AuthDataSource
 import com.sopt.dive.data.remote.service.dto.request.LoginRequestDto
@@ -38,7 +38,7 @@ class AuthRepositoryImpl(
             val exception = when (e) {
                 is TimeoutCancellationException -> CommonError.Timeout()
                 is HttpException -> {
-                    when (val errorData = getServerError(e)) {
+                    when (val errorData = e.serverError()) {
                         null -> CommonError.Unknown()
                         else -> when (errorData.code) {
                             "COMMON-400-VAL", "COMMON-401" -> AuthError.InvalidCredentials()

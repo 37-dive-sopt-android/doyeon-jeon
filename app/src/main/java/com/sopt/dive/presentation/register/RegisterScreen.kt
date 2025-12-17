@@ -1,6 +1,5 @@
 package com.sopt.dive.presentation.register
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
+import com.sopt.dive.core.util.showServerErrorToast
+import com.sopt.dive.core.util.showToast
 import com.sopt.dive.presentation.component.AuthInputField
 import com.sopt.dive.presentation.component.DiveButton
 import com.sopt.dive.presentation.component.ScreenTitle
@@ -40,16 +41,8 @@ fun RegisterRoute(
         viewModel.sideEffect.collect {
             when (it) {
                 is RegisterSideEffect.PopToLogin -> popToLogin()
-                is RegisterSideEffect.ShowToast -> Toast.makeText(
-                    context,
-                    context.getString(it.message),
-                    Toast.LENGTH_SHORT
-                ).show()
-                is RegisterSideEffect.ShowStringToast -> Toast.makeText(
-                    context,
-                    it.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+                is RegisterSideEffect.ShowToast -> context.showToast(it.message)
+                is RegisterSideEffect.ShowErrorToast -> context.showServerErrorToast(it.e)
             }
         }
     }

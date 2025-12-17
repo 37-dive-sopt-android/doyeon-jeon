@@ -1,6 +1,5 @@
 package com.sopt.dive.presentation.profile
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
+import com.sopt.dive.core.util.showServerErrorToast
+import com.sopt.dive.core.util.showToast
 import com.sopt.dive.data.model.Profile
 import com.sopt.dive.data.model.User
 import com.sopt.dive.presentation.component.InfoBox
@@ -35,12 +36,8 @@ fun ProfileRoute(
 
         viewModel.sideEffect.collect {
             when (it) {
-                is ProfileSideEffect.ShowToast -> Toast.makeText(
-                    context,
-                    context.getString(it.message),
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                is ProfileSideEffect.ShowToast -> context.showToast(it.message)
+                is ProfileSideEffect.ShowErrorToast -> context.showServerErrorToast(it.e)
                 is ProfileSideEffect.NavigateToLogin -> navigateToLogin.invoke()
             }
         }

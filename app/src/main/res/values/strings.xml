@@ -47,4 +47,5 @@
     <string name="profile_email_label">EMAIL</string>
     <string name="profile_age_label">AGE</string>
     <string name="register_duplicate_id_error_message">중복된 아이디입니다</string>
+    <string name="common_need_login">로그인 후, 이용 가능해요.</string>
 </resources>
