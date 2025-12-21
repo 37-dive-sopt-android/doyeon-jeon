@@ -23,6 +23,9 @@ import com.sopt.dive.presentation.component.BottomNavigationBarItem
 import com.sopt.dive.presentation.splash.Splash
 import com.sopt.dive.presentation.theme.Background
 import com.sopt.dive.presentation.theme.DiveTheme
+import com.sopt.dive.presentation.type.AppIcon
+import com.sopt.dive.presentation.util.changeIcon
+import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +86,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        val currentMinute = Calendar.getInstance().get(Calendar.MINUTE)
+
+        val target = if (currentMinute % 2 == 0) {
+            AppIcon.NARUTO
+        } else {
+            AppIcon.DEFAULT
+        }
+
+        changeIcon(target)
+
+        super.onDestroy()
     }
 }
 

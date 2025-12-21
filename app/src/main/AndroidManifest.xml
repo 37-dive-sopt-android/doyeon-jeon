@@ -23,10 +23,60 @@
             android:theme="@style/Theme.Dive">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        
+        <activity-alias
+            android:name=".Kakashi"
+            android:targetActivity=".presentation.main.MainActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_kakashi"
+            android:roundIcon="@mipmap/ic_kakashi"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
+        <activity-alias
+            android:name=".Naruto"
+            android:targetActivity=".presentation.main.MainActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_naruto"
+            android:roundIcon="@mipmap/ic_naruto"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".Sasuke"
+            android:targetActivity=".presentation.main.MainActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_sasuke"
+            android:roundIcon="@mipmap/ic_sasuke"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".Sakura"
+            android:targetActivity=".presentation.main.MainActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_sakura"
+            android:roundIcon="@mipmap/ic_sakura"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+    </application>
 </manifest>
