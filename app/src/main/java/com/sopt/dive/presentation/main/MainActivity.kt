@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
         val target = if (currentMinute % 2 == 0) {
             AppIcon.NARUTO
         } else {
-            AppIcon.DEFAULT
+            AppIcon.KAKASHI
         }
 
         changeIcon(target)

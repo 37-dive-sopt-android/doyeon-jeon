@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
+import androidx.navigation.toRoute
 import com.sopt.dive.presentation.home.Home
 import com.sopt.dive.presentation.home.HomeRoute
 import com.sopt.dive.presentation.login.Login
@@ -18,6 +20,8 @@ import com.sopt.dive.presentation.search.Search
 import com.sopt.dive.presentation.search.SearchRoute
 import com.sopt.dive.presentation.splash.Splash
 import com.sopt.dive.presentation.splash.SplashRoute
+
+const val host = "https://www.doyeondive.com"
 
 fun NavGraphBuilder.diveNavGraph(
     // Screen에서 navigation 필요한 경우,
@@ -61,14 +65,26 @@ fun NavGraphBuilder.diveNavGraph(
             modifier = Modifier.padding(innerPadding)
         )
     }
-    composable<Home> {
+    composable<Home>(
+        deepLinks = listOf(
+            navDeepLink<Home>(basePath = "$host/home")
+        )
+    ) {_ ->
         HomeRoute(
             modifier = Modifier.padding(innerPadding)
         )
     }
-    composable<Search> {
+    composable<Search>(
+        deepLinks = listOf(
+            navDeepLink<Search>(basePath = "$host/search")
+        )
+    ) {backStackEntry ->
+        val entry = backStackEntry.toRoute<Search>()
         SearchRoute(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            id = entry.id,
+            category = entry.category,
+            keyword = entry.keyword,
         )
     }
     composable<Profile> {

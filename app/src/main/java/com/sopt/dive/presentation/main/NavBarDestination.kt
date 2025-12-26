@@ -22,7 +22,7 @@ enum class NavBarDestination(
     SearchDestination(
         icon = R.drawable.ic_search,
         label = "검색",
-        route = Search
+        route = Search(id = 1)
     ),
     ProfileDestination(
         icon = R.drawable.ic_profile,

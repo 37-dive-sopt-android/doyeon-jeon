@@ -27,15 +27,24 @@ import com.sopt.dive.presentation.theme.Typography
 @Composable
 fun SearchRoute(
     modifier: Modifier = Modifier,
+    id: Int,
+    category: String?,
+    keyword: String?,
 ) {
     SearchScreen(
-        modifier = modifier
+        modifier = modifier,
+        id = id,
+        category = category,
+        keyword = keyword
     )
 }
 
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
+    id: Int,
+    category: String? = null,
+    keyword: String? = null,
 ) {
     var isFlipping by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
@@ -49,8 +58,8 @@ fun SearchScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            "여기에 만드는 거 맞나?",
-            style = Typography.bodySmall,
+            "id = $id, category = $category, keyword = $keyword",
+            style = Typography.titleMedium,
             color = Black2
         )
         FlippableCard(
@@ -68,6 +77,7 @@ fun SearchScreen(
 @Composable
 private fun SearchScreenPreview() {
     SearchScreen(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        id = 3,
     )
 }
