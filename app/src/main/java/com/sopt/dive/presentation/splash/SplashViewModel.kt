@@ -7,6 +7,7 @@ import com.sopt.dive.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import com.sopt.dive.presentation.splash.SplashContract.*
 
 class SplashViewModel() : ViewModel() {
     private val authRepository: AuthRepository = AuthModule.authRepository

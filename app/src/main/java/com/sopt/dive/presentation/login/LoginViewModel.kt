@@ -5,15 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.dive.R
 import com.sopt.dive.data.repository.AuthRepository
 import com.sopt.dive.di.feature.AuthModule
-import com.sopt.dive.presentation.login.LoginSideEffect.NavigateToHome
-import com.sopt.dive.presentation.login.LoginSideEffect.ShowErrorToast
-import com.sopt.dive.presentation.login.LoginSideEffect.ShowToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.sopt.dive.presentation.login.LoginContract.*
+import com.sopt.dive.presentation.login.LoginContract.LoginSideEffect.*
 
 class LoginViewModel() : ViewModel() {
     private val authRepository: AuthRepository = AuthModule.authRepository

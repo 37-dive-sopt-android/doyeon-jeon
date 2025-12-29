@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel : ViewModel() {
     private val reqresRepository: ReqresRepository = ReqresModule.reqresRepository
 
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeContract.HomeUiState())
+    val uiState: StateFlow<HomeContract.HomeUiState> = _uiState.asStateFlow()
 
     init {
         getMyProfile()

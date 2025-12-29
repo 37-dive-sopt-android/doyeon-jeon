@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.dive.data.repository.UserRepository
 import com.sopt.dive.data.type.AuthError
 import com.sopt.dive.di.feature.UserModule
-import com.sopt.dive.presentation.profile.ProfileSideEffect.NavigateToLogin
-import com.sopt.dive.presentation.profile.ProfileSideEffect.ShowErrorToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.sopt.dive.presentation.profile.ProfileContract.*
+import com.sopt.dive.presentation.profile.ProfileContract.ProfileSideEffect.*
 
 class ProfileViewModel() : ViewModel() {
     private val userRepository: UserRepository = UserModule.userRepository
