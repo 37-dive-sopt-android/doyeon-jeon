@@ -1,7 +1,7 @@
 package com.sopt.dive.presentation.login
 
-class LoginContract{
-    data class LoginUiState(
+class LoginContract {
+    data class State(
         val inputId: String = "",
         val inputPw: String = "",
     ) {
@@ -10,9 +10,17 @@ class LoginContract{
                 inputId.isNotBlank() && inputPw.isNotBlank()
     }
 
-    sealed class LoginSideEffect {
-        data object NavigateToHome : LoginSideEffect()
-        data class ShowToast(val message: Int) : LoginSideEffect()
-        data class ShowErrorToast(val e: Throwable) : LoginSideEffect()
+    sealed class Event {
+        data class OnIdChanged(val vaule: String) : Event()
+        data class OnPwChanged(val value: String) : Event()
+        data object OnLoginBtnClicked : Event()
+        data object OnRegisterBtnClicked: Event()
+    }
+
+    sealed class SideEffect {
+        data object NavigateToHome : SideEffect()
+        data object NavigateToRegister: SideEffect()
+        data class ShowToast(val message: Int) : SideEffect()
+        data class ShowErrorToast(val e: Throwable) : SideEffect()
     }
 }

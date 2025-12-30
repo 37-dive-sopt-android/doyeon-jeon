@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
 import com.sopt.dive.presentation.component.ScreenTitle
+import com.sopt.dive.presentation.splash.SplashContract.*
 
 @Composable
 fun SplashRoute(

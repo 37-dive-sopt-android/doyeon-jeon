@@ -25,6 +25,8 @@ import com.sopt.dive.core.util.showToast
 import com.sopt.dive.presentation.component.AuthInputField
 import com.sopt.dive.presentation.component.DiveButton
 import com.sopt.dive.presentation.component.ScreenTitle
+import com.sopt.dive.presentation.register.RegisterContract.*
+import com.sopt.dive.presentation.register.RegisterContract.RegisterEvent.*
 
 @Composable
 fun RegisterRoute(
@@ -50,16 +52,16 @@ fun RegisterRoute(
     RegisterScreen(
         focusManager = focusManager,
         id = uiState.id,
-        onIdChanged = viewModel::onIdChanged,
+        onIdChanged = { value -> viewModel.setEvent(OnIdChanged(value)) },
         pw = uiState.pw,
-        onPwChanged = viewModel::onPwChanged,
+        onPwChanged = { value -> viewModel.setEvent(OnPwChanged(value)) },
         nickname = uiState.nickname,
-        onNicknameChanged = viewModel::onNicknameChanged,
+        onNicknameChanged = { value -> viewModel.setEvent(OnNicknameChanged(value)) },
         email = uiState.email,
-        onEmailChanged = viewModel::onEmailChanged,
+        onEmailChanged = { value -> viewModel.setEvent(OnEmailChanged(value)) },
         age = uiState.age,
-        onAgeChanged = viewModel::onAgeChanged,
-        onRegisterClick = viewModel::onRegisterClick,
+        onAgeChanged = { value -> viewModel.setEvent(OnAgeChanged(value)) },
+        onRegisterClick = { viewModel.setEvent(OnRegisterBtnClicked) },
         isRegisterButtonEnabled = uiState.isRegisterButtonEnabled,
         modifier = modifier
     )

@@ -12,16 +12,42 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.sopt.dive.presentation.login.LoginContract.*
-import com.sopt.dive.presentation.login.LoginContract.LoginSideEffect.*
+import com.sopt.dive.presentation.login.LoginContract.SideEffect.*
+import com.sopt.dive.presentation.login.LoginContract.Event.*
 
 class LoginViewModel() : ViewModel() {
     private val authRepository: AuthRepository = AuthModule.authRepository
 
-    private var _uiState = MutableStateFlow(LoginUiState())
+    private var _uiState = MutableStateFlow(State())
     val uiState = _uiState.asStateFlow()
 
-    private val _sideEffect = MutableSharedFlow<LoginSideEffect>()
+    private val _sideEffect = MutableSharedFlow<SideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
+
+    fun setEvent(
+        event: Event,
+    ) {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(
+        event: Event,
+    ) {
+        when (event) {
+            is OnIdChanged -> onInputIdChanged(event.vaule)
+            is OnPwChanged -> onInputPwChanged(event.value)
+            is OnLoginBtnClicked -> onLoginClick()
+            is OnRegisterBtnClicked -> viewModelScope.launch {
+                emitSideEffect(NavigateToRegister)
+            }
+        }
+    }
+
+    private suspend fun emitSideEffect(
+        effect: SideEffect,
+    ) {
+        _sideEffect.emit(effect)
+    }
 
     fun onInputIdChanged(value: String) {
         _uiState.update {

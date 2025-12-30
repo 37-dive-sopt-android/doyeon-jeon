@@ -16,11 +16,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.dive.R
 import com.sopt.dive.core.util.showServerErrorToast
-import com.sopt.dive.core.util.showToast
 import com.sopt.dive.data.model.Profile
 import com.sopt.dive.data.model.User
 import com.sopt.dive.presentation.component.InfoBox
 import com.sopt.dive.presentation.component.ProfileCard
+import com.sopt.dive.presentation.profile.ProfileContract.*
 
 @Composable
 fun ProfileRoute(
@@ -36,7 +36,6 @@ fun ProfileRoute(
 
         viewModel.sideEffect.collect {
             when (it) {
-                is ProfileSideEffect.ShowToast -> context.showToast(it.message)
                 is ProfileSideEffect.ShowErrorToast -> context.showServerErrorToast(it.e)
                 is ProfileSideEffect.NavigateToLogin -> navigateToLogin.invoke()
             }

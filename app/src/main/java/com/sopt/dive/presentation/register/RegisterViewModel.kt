@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.sopt.dive.presentation.register.RegisterContract.*
 import com.sopt.dive.presentation.register.RegisterContract.RegisterSideEffect.*
+import com.sopt.dive.presentation.register.RegisterContract.RegisterEvent.*
 
 class RegisterViewModel() : ViewModel() {
     private val userRepository: UserRepository = UserModule.userRepository
@@ -28,6 +29,21 @@ class RegisterViewModel() : ViewModel() {
     private val pwRegex =
         "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,12}$".toRegex()
     private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
+
+    fun setEvent(event: RegisterEvent) {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(event: RegisterEvent) {
+        when (event) {
+            is OnAgeChanged -> onAgeChanged(event.value)
+            is OnIdChanged -> onIdChanged(event.value)
+            is OnNicknameChanged -> onNicknameChanged(event.value)
+            is OnEmailChanged -> onEmailChanged(event.value)
+            is OnPwChanged -> onPwChanged(event.value)
+            OnRegisterBtnClicked -> onRegisterClick()
+        }
+    }
 
     fun onIdChanged(value: String) {
         _uiState.update {

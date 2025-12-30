@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,6 +27,14 @@ import com.sopt.dive.presentation.component.AuthInputField
 import com.sopt.dive.presentation.component.DiveButton
 import com.sopt.dive.presentation.component.DiveTextButton
 import com.sopt.dive.presentation.component.ScreenTitle
+import com.sopt.dive.presentation.login.LoginContract.Event.OnIdChanged
+import com.sopt.dive.presentation.login.LoginContract.Event.OnLoginBtnClicked
+import com.sopt.dive.presentation.login.LoginContract.Event.OnPwChanged
+import com.sopt.dive.presentation.login.LoginContract.SideEffect.NavigateToHome
+import com.sopt.dive.presentation.login.LoginContract.SideEffect.NavigateToRegister
+import com.sopt.dive.presentation.login.LoginContract.SideEffect.ShowErrorToast
+import com.sopt.dive.presentation.login.LoginContract.SideEffect.ShowToast
+import com.sopt.dive.presentation.theme.DiveTheme
 
 @Composable
 fun LoginRoute(
@@ -42,9 +51,10 @@ fun LoginRoute(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
             when (it) {
-                is LoginSideEffect.NavigateToHome -> navigateToHome()
-                is LoginSideEffect.ShowToast -> context.showToast(it.message)
-                is LoginSideEffect.ShowErrorToast -> context.showServerErrorToast(it.e)
+                is NavigateToHome -> navigateToHome()
+                is NavigateToRegister -> navigateToRegister()
+                is ShowToast -> context.showToast(it.message)
+                is ShowErrorToast -> context.showServerErrorToast(it.e)
             }
         }
     }
@@ -52,16 +62,15 @@ fun LoginRoute(
     LoginScreen(
         focusManager = focusManager,
         inputId = uiState.inputId,
-        onInputIdChanged = viewModel::onInputIdChanged,
+        onInputIdChanged = { value -> viewModel.setEvent(OnIdChanged(value)) },
         inputPw = uiState.inputPw,
-        onInputPwChanged = viewModel::onInputPwChanged,
+        onInputPwChanged = { value -> viewModel.setEvent(OnPwChanged(value)) },
         onRegisterClick = navigateToRegister,
-        onLoginClick = viewModel::onLoginClick,
+        onLoginClick = { viewModel.setEvent(OnLoginBtnClicked) },
         isLoginButtonEnabled = uiState.isLoginButtonEnabled,
         modifier = modifier
     )
 }
-
 
 @Composable
 fun LoginScreen(
@@ -124,6 +133,23 @@ fun LoginScreen(
             onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth(),
             enabled = isLoginButtonEnabled
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun LoginScreenPreview() {
+    DiveTheme {
+        LoginScreen(
+            focusManager = LocalFocusManager.current,
+            inputId = "",
+            onInputIdChanged = {},
+            inputPw = "",
+            onInputPwChanged = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            isLoginButtonEnabled = false,
         )
     }
 }
